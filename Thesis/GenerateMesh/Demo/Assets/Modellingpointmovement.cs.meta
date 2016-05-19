@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 67b03f669e45943c9970880382bf6fa8
+timeCreated: 1463685134
+licenseType: Free
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences:
+  - Sphere3d: {instanceID: 0}
+  - m: {fileID: 2100000, guid: 4ea3e171f95b50341b60e5d0f9c90e08, type: 2}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
