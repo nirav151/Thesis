@@ -17,11 +17,15 @@ public class Modellingpointmovement : MonoBehaviour {
 		cosp=Mathf.Cos(Mathf.PI/p);
 		sinp=Mathf.Sin(Mathf.PI/p);
 		coshq=Mathf.Cos(Mathf.PI/q)/sinp;
-		print ("coshq" + coshq);
 		sinhq=Mathf.Sqrt(coshq*coshq-1);
 		cosh2q = 2 * coshq * coshq - 1;
 		sinh2q = 2 * sinhq * coshq;
+		print ("cosh2q " + cosh2q);
+		print("sinh2q "+ sinh2q);
+		print ("coshq " + coshq);
+		print ("sinhq " + sinhq);
 	}
+
 	
 	// Update is called once per frame
 	void Update()
@@ -32,11 +36,16 @@ public class Modellingpointmovement : MonoBehaviour {
 			ray = Camera.main.ScreenPointToRay (Input.mousePosition);
 			if (Physics.Raycast (ray, out hit)) 
 			{
+				LineRenderer lineRend;
 				if(hit.collider.name=="0")
 				{
 					transform.position=hit.point;
 					Vector3 position3d = get3dequivalentpointtile0 (transform.position);
 					Sphere3d.transform.position = position3d;
+					defaultLineWidth ();
+					GameObject.Find ("0").GetComponent<LineRenderer> ().SetWidth(0.05f,0.05f);
+
+
 				}
 				else if (hit.collider.name == "9") 
 				{
@@ -44,6 +53,8 @@ public class Modellingpointmovement : MonoBehaviour {
 					transform.position = hit.point;
 					Vector3 position3d = get3dequivalentpoint (transform.position,tile_clicked);
 					Sphere3d.transform.position = position3d;
+					defaultLineWidth ();
+					GameObject.Find ("9").GetComponent<LineRenderer> ().SetWidth(0.05f,0.05f);
 				}
 				else if (hit.collider.name == "5") 
 				{
@@ -51,6 +62,8 @@ public class Modellingpointmovement : MonoBehaviour {
 					transform.position = hit.point;
 					Vector3 position3d = get3dequivalentpoint (transform.position,tile_clicked);
 					Sphere3d.transform.position = position3d;
+					defaultLineWidth ();
+					GameObject.Find ("5").GetComponent<LineRenderer> ().SetWidth(0.05f,0.05f);
 				}
 				else if (hit.collider.name == "12") 
 				{
@@ -58,6 +71,8 @@ public class Modellingpointmovement : MonoBehaviour {
 					transform.position = hit.point;
 					Vector3 position3d = get3dequivalentpoint (transform.position,tile_clicked);
 					Sphere3d.transform.position = position3d;
+					defaultLineWidth ();
+					GameObject.Find ("12").GetComponent<LineRenderer> ().SetWidth(0.05f,0.05f);
 				}
 				else if (hit.collider.name == "11") 
 				{
@@ -65,6 +80,8 @@ public class Modellingpointmovement : MonoBehaviour {
 					transform.position = hit.point;
 					Vector3 position3d = get3dequivalentpoint (transform.position,tile_clicked);
 					Sphere3d.transform.position = position3d;
+					defaultLineWidth ();
+					GameObject.Find ("11").GetComponent<LineRenderer> ().SetWidth(0.05f,0.05f);
 				}
 				else if (hit.collider.name == "10") 
 				{
@@ -72,6 +89,8 @@ public class Modellingpointmovement : MonoBehaviour {
 					transform.position = hit.point;
 					Vector3 position3d = get3dequivalentpoint (transform.position,tile_clicked);
 					Sphere3d.transform.position = position3d;
+					defaultLineWidth ();
+					GameObject.Find ("10").GetComponent<LineRenderer> ().SetWidth(0.05f,0.05f);
 				}
 			}
 		}
@@ -108,37 +127,37 @@ public class Modellingpointmovement : MonoBehaviour {
 			break;
 
 		case 5:
-			transformationmatrix [0, 0] = -cosh2q;
-			transformationmatrix [0,1]= 0f;
-			transformationmatrix[0,2]= -sinh2q;
-			transformationmatrix [1,0]=0f;
-			transformationmatrix [1,1]=-1f;
-			transformationmatrix [1,2]=0f;
-			transformationmatrix [2,0]=-sinh2q;
-			transformationmatrix [2,1]=0f;
-			transformationmatrix [2,2]=-cosh2q;
+			transformationmatrix [0, 0] = coshq;
+			transformationmatrix [0, 1] = 0f;
+			transformationmatrix [0, 2] = -sinhq;
+			transformationmatrix [1, 0] = 0f;
+			transformationmatrix [1, 1] = 1f;
+			transformationmatrix [1, 2] = 0f;
+			transformationmatrix [2, 0] = sinhq;
+			transformationmatrix [2, 1] = 0f;
+			transformationmatrix [2, 2] = coshq;
 			break;
 
 		case 12:
-			transformationmatrix [0, 0] = -cosh2q;
+			transformationmatrix [0, 0] = cosh2q;
 			transformationmatrix [0,1]= 0f;
-			transformationmatrix[0,2]= -sinh2q;
+			transformationmatrix[0,2]= sinh2q;
 			transformationmatrix [1,0]=0f;
-			transformationmatrix [1,1]=-1f;
+			transformationmatrix [1,1]=1f;
 			transformationmatrix [1,2]=0f;
-			transformationmatrix [2,0]=-sinh2q;
+			transformationmatrix [2,0]=sinh2q;
 			transformationmatrix [2,1]=0f;
-			transformationmatrix [2,2]=-cosh2q;
+			transformationmatrix [2,2]=cosh2q;
 			break;
 		
 		case 11:
-			transformationmatrix [0, 0] = -cosh2q;
+			transformationmatrix [0, 0] = cosh2q;
 			transformationmatrix [0,1]= 0f;
-			transformationmatrix[0,2]= -sinh2q;
+			transformationmatrix[0,2]= sinh2q;
 			transformationmatrix [1,0]=0f;
 			transformationmatrix [1,1]=-1f;
 			transformationmatrix [1,2]=0f;
-			transformationmatrix [2,0]=-sinh2q;
+			transformationmatrix [2,0]=sinh2q;
 			transformationmatrix [2,1]=0f;
 			transformationmatrix [2,2]=-cosh2q;
 			break;
@@ -157,11 +176,10 @@ public class Modellingpointmovement : MonoBehaviour {
 
 
 		}
-		print ("poincare point " + pointin2d);
-
+		print ("poincare point " + pointin2d.x + "  "+ pointin2d.y + " " + pointin2d.z);
 		// convert poincare point to hyperboloid point
 		Vector3 hyperboloidpoint = ptoh (pointin2d);
-		print ("hyperboloid point " + hyperboloidpoint);
+		print ("hyperboloid point " + hyperboloidpoint.x +"  "+ hyperboloidpoint.y +" "+hyperboloidpoint.z);
 
 		// applying transformation....create a vector3 to save intermediate result.
 
@@ -246,7 +264,7 @@ public class Modellingpointmovement : MonoBehaviour {
 
 		case 5:
 			offset = new Vector3 (0f, 1.16f, 3f);
-			finalpoint.x = point.y;
+			finalpoint.x = -point.y;
 			finalpoint.z = -point.x;
 			break;
 		case 9:
@@ -281,6 +299,7 @@ public class Modellingpointmovement : MonoBehaviour {
 		Vector3 finalpoint = new Vector3 (0, 0, 0);
 		finalpoint.y = kleinpoint.y;
 		finalpoint.z = -kleinpoint.x;
+		print ("final klein point " + finalpoint);
 		return finalpoint + new Vector3(0.591f,0.591f,3);;
 	}
 		
@@ -334,6 +353,14 @@ public class Modellingpointmovement : MonoBehaviour {
 		return point;
 	}
 
-
+	public void defaultLineWidth()
+	{
+		GameObject.Find ("0").GetComponent<LineRenderer> ().SetWidth (0.02f, 0.02f);
+		GameObject.Find ("5").GetComponent<LineRenderer> ().SetWidth (0.02f, 0.02f);
+		GameObject.Find ("9").GetComponent<LineRenderer> ().SetWidth (0.02f, 0.02f);
+		GameObject.Find ("10").GetComponent<LineRenderer> ().SetWidth (0.02f, 0.02f);
+		GameObject.Find ("11").GetComponent<LineRenderer> ().SetWidth (0.02f, 0.02f);
+		GameObject.Find ("12").GetComponent<LineRenderer> ().SetWidth (0.02f, 0.02f);
+	}
 
 }

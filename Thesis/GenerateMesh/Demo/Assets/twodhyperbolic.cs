@@ -21,13 +21,15 @@ public class twodhyperbolic : MonoBehaviour {
 	int number=0,lineValue=1;
 	int[] polygonsinalllayers;
 	LineRenderer lineRenderer;
-	void Start(){
+	int[,] tilemap;
+	void Start()
+	{
+//		lineRenderer = gameObject.AddComponent<LineRenderer> ();
+//		lineRenderer.material = new Material (Shader.Find ("Particles/Additive"));
+//		lineRenderer.SetColors (Color.red, Color.red);
+//		lineRenderer.SetWidth (0.01f, 0.01f);
+		tilemap = new int[6, 2] { { 0, 102 }, { 5, 101 }, { 12, 104 }, { 11, 107 },{10,109} ,{9,110}};
 
-
-			lineRenderer = gameObject.AddComponent<LineRenderer> ();
-			lineRenderer.material = new Material (Shader.Find ("Particles/Additive"));
-			lineRenderer.SetColors (Color.red, Color.red);
-			lineRenderer.SetWidth (0.01f, 0.01f);
 		do {
 			polygonsinalllayers = new int[numberOfLayers + 1];
 			polygonCount (numberOfLayers, sides, polygons_at_vertice, max);
@@ -78,10 +80,6 @@ public class twodhyperbolic : MonoBehaviour {
 		Polygon demo=ptok (verti [0]);
 		print ( "klein point" + demo.vertices [1]);
 		print (" original poincare point "+verti [0].vertices [1]);
-
-		
-		
-		
 	}
 
 
@@ -89,23 +87,24 @@ public class twodhyperbolic : MonoBehaviour {
 		void Update()
 		{
 				
-			RenderLine ();
-			int lengthofLineRenderer = finalPoints [0].vertices.Count*6;
-			lineRenderer.SetVertexCount (lengthofLineRenderer);
-			int k = 0;
-			while (k < lengthofLineRenderer) 
-			{
-				for (int i = 0; i < finalPoints.Length; i++)
-				{
-					for(int j=0;j<FinalPoints[i].vertices.Count;j++)
-					{
-						Vector3 pos = new Vector3 (finalPoints [i].vertices [j].x, finalPoints [i].vertices [j].y, 0);
-						lineRenderer.SetPosition (k, pos);
-						k++;
-					}
-						
-				}
-			}
+//			RenderLine ();
+//			int lengthofLineRenderer = finalPoints [0].vertices.Count*6;
+//			lineRenderer.SetVertexCount (lengthofLineRenderer);
+//			int k = 0;
+//			while (k < lengthofLineRenderer) 
+//			{
+//				for (int i = 0; i < finalPoints.Length; i++)
+//				{
+//					for(int j=0;j<FinalPoints[i].vertices.Count;j++)
+//					{
+//						Vector3 pos = new Vector3 (finalPoints [i].vertices [j].x, finalPoints [i].vertices [j].y, 0);
+//						lineRenderer.SetPosition (k, pos);
+//						k++;
+//					}
+//						
+//				}
+//			}
+
 		}
 		
 
@@ -382,12 +381,27 @@ public class twodhyperbolic : MonoBehaviour {
 			triangles[i]=i;
 
 		}
-			GameObject tile=new GameObject(number.ToString());
+		GameObject tile=new GameObject(number.ToString());
+		tile.AddComponent<LineRenderer> ();
+		lineRenderer = tile.GetComponent<LineRenderer> ();
+		lineRenderer.material = new Material (Shader.Find ("Particles/Additive"));
+		lineRenderer.SetColors (Color.red, Color.red);
+		lineRenderer.SetWidth (0.02f, 0.02f);
+		
+		if (checkifrepresentedin2d (number))
+		{
+			lineRenderer.SetVertexCount (Poincarepoints.vertices.Count);
+			print ("num " + number);
+			for (int i = 0; i < Poincarepoints.vertices.Count; i++) 
+			{
+				lineRenderer.SetPosition (i, Poincarepoints.vertices [i]);
+			}
+		}
+		
 		tile.tag = "Player";
 		number++;
 		Mesh msh = new Mesh();
 		tile.AddComponent<MeshFilter> ();
-		Color newColor = new Color( Random.value,Random.value,Random.value,1.0f );
 		tile.AddComponent<MeshRenderer> ().material=mat;
 		msh.vertices = vertices;
 		msh.triangles = triangles;
@@ -609,5 +623,16 @@ public class twodhyperbolic : MonoBehaviour {
 
 	}
 
-}
+	public bool checkifrepresentedin2d(int number)
+	{
+			for (int i = 0; i <tilemap.GetLength (0); i++) 
+			{
+				if (tilemap [i, 0] == number) {
+					print ("true ");
+					return true;	
+				}
+			}
+			return false;
+	}
+	}
 }
