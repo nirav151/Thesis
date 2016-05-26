@@ -127,26 +127,26 @@ public class Modellingpointmovement : MonoBehaviour {
 			break;
 
 		case 5:
-			transformationmatrix [0, 0] = coshq;
-			transformationmatrix [0, 1] = 0f;
-			transformationmatrix [0, 2] = -sinhq;
-			transformationmatrix [1, 0] = 0f;
-			transformationmatrix [1, 1] = 1f;
+			transformationmatrix [0, 0] = 0f;
+			transformationmatrix [0, 1] = -cosh2q;
+			transformationmatrix [0, 2] = sinh2q;
+			transformationmatrix [1, 0] = -1f;
+			transformationmatrix [1, 1] = 0f;
 			transformationmatrix [1, 2] = 0f;
-			transformationmatrix [2, 0] = sinhq;
-			transformationmatrix [2, 1] = 0f;
-			transformationmatrix [2, 2] = coshq;
+			transformationmatrix [2, 0] = 0f;
+			transformationmatrix [2, 1] = -sinh2q;
+			transformationmatrix [2, 2] = cosh2q;
 			break;
 
 		case 12:
-			transformationmatrix [0, 0] = cosh2q;
-			transformationmatrix [0,1]= 0f;
+			transformationmatrix [0, 0] = -cosh2q*0.5f;
+			transformationmatrix [0,1]= -cosh2q*0.866f;
 			transformationmatrix[0,2]= sinh2q;
-			transformationmatrix [1,0]=0f;
-			transformationmatrix [1,1]=1f;
+			transformationmatrix [1,0]=0.866f;
+			transformationmatrix [1,1]=0.5f;
 			transformationmatrix [1,2]=0f;
-			transformationmatrix [2,0]=sinh2q;
-			transformationmatrix [2,1]=0f;
+			transformationmatrix [2,0]=-sinh2q*0.866f;
+			transformationmatrix [2,1]=-sinh2q*0.5f;
 			transformationmatrix [2,2]=cosh2q;
 			break;
 		
@@ -188,7 +188,7 @@ public class Modellingpointmovement : MonoBehaviour {
 
 		Vector3 intermediatepoint = ConvertmatrixtoVector3(intermediateresult);
 	
-		print ("transformed hyperboloid point " + intermediatepoint);
+		print ("transformed hyperboloid point " + intermediatepoint.x+ " "+intermediatepoint.y +" "+intermediatepoint.z);
 
 //		Vector3 intermediatepoint_1 = new Vector3();
 //		intermediatepoint_1.x = -hyperboloidpoint.x * cosh2q - hyperboloidpoint.z * sinh2q;
@@ -264,8 +264,8 @@ public class Modellingpointmovement : MonoBehaviour {
 
 		case 5:
 			offset = new Vector3 (0f, 1.16f, 3f);
-			finalpoint.x = -point.y;
-			finalpoint.z = -point.x;
+			finalpoint.x = point.x;
+			finalpoint.z = point.y;
 			break;
 		case 9:
 			offset= new Vector3 (1.16f, 0.561f, 3.58f);
