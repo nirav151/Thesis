@@ -8,6 +8,9 @@ public class ThreeDimensionalpolyhedra : MonoBehaviour {
 	public Material material;
 	GameObject tile;
 	Vector3[] vertices;
+	LineRenderer linerenderer;
+	LineRenderer linerenderer2;
+	Polygon a;
 	// Use this for initialization
 	void Start () {
 		RenderSquare (material);
@@ -65,8 +68,7 @@ public class ThreeDimensionalpolyhedra : MonoBehaviour {
 		tile.AddComponent<MeshRenderer> ().material=mat;
 		tile.AddComponent<MeshCollider> ();
 		tile.tag="Player";
-		Polygon a = ConstructCenterPolygon (4, 6);
-
+		a = ConstructCenterPolygon (4, 6);
 		Vector3 center = CenterofPolygon (a);
 		print ("center " + center);
 		Polygon b = new Polygon ();
@@ -174,30 +176,62 @@ public class ThreeDimensionalpolyhedra : MonoBehaviour {
 	{
 		GameObject tile1 =Instantiate (tile, tile.transform.position+new Vector3 (0f, 1.16f, 0f), tile.transform.rotation * Quaternion.Euler (new Vector3 (0f, 0f, 180f))) as GameObject;
 		tile1.name="101";
+//		tile1.AddComponent<LineRenderer> ();
+//		linerenderer = tile1.GetComponent<LineRenderer> ();
+//		linerenderer.material = new Material (Shader.Find ("Particles/Additive"));
+//		linerenderer.SetColors (Color.red, Color.red);
+//		linerenderer.SetWidth (0.02f, 0.02f);
+//		Vector3[] o = pointsrotatedandtranslated (new Vector3 (0f, 1.16f, 0f),new Vector3 (0f, 0f, 180f));
+//		linerenderer.SetVertexCount (o.Length);
+//		for (int i = 0; i < o.Length; i++) {
+//			linerenderer.SetPosition (i, o[i]);
+//		}
+		LineRenderer l1=new LineRenderer();
+		AddLineRenderer(tile1,l1,tile1.transform.position,tile1.transform.eulerAngles);
+
 		Mesh m1 = tile1.GetComponent<MeshFilter> ().mesh;
 		rotategraphiconmesh (m1);
 		GameObject tile2 =Instantiate (tile, tile.transform.position+new Vector3 (0.581f, 0.581f, 0f), tile.transform.rotation * Quaternion.Euler (new Vector3 (0f, 0f, 90f))) as GameObject;
 		tile2.name="102";
+		LineRenderer l2=new LineRenderer();
+		AddLineRenderer(tile2,l2,tile2.transform.position,tile2.transform.eulerAngles);
+
 		GameObject tile3 =Instantiate (tile, tile.transform.position+new Vector3 (-0.581f, 0.581f, 0f), tile.transform.rotation *  Quaternion.Euler (new Vector3 (0f, 0f, 270f))) as GameObject;
 		tile3.name="103";
+
 		GameObject tile4 =Instantiate (tile, tile.transform.position+new Vector3 (0f, 1.743f, 0.581f), tile.transform.rotation *  Quaternion.Euler (new Vector3 (90f, 0f, 0f))) as GameObject;
 		tile4.name="104";
+		LineRenderer l4=new LineRenderer(); 
+		AddLineRenderer(tile4,l4,tile4.transform.position,tile4.transform.eulerAngles);
+
 		GameObject tile5 =Instantiate (tile, tile.transform.position+new Vector3 (0f, 1.743f, 1.743f), tile.transform.rotation *  Quaternion.Euler (new Vector3 (270f, 0f, 0f))) as GameObject;
 		tile5.name="105";
+
 		GameObject tile6 =Instantiate (tile, tile.transform.position+new Vector3 (-0.581f, 1.743f, 1.16f), tile.transform.rotation * Quaternion.Euler (new Vector3 (0f, 0f, 270f))) as GameObject;
 		tile6.name="106";
+
 		GameObject tile7 =Instantiate (tile, tile.transform.position+new Vector3 (0.581f, 1.743f, 1.16f), tile.transform.rotation * Quaternion.Euler (new Vector3 (0f, 0f, 90f))) as GameObject;
 		tile7.name="107";
+		LineRenderer l7=new LineRenderer(); 
+		AddLineRenderer(tile7,l7,tile7.transform.position,tile7.transform.eulerAngles);
+
 		GameObject tile8 =Instantiate (tile, tile.transform.position+new Vector3 (1.16f, 0f, 1.16f), tile.transform.rotation * Quaternion.Euler (new Vector3 (0f, 0f, 0f))) as GameObject;
 		tile8.name="108";
 		Mesh m8 = tile8.GetComponent<MeshFilter> ().mesh;
 		rotategraphiconmesh (m8);
+
 		GameObject tile9 =Instantiate (tile, tile.transform.position+new Vector3 (1.16f, 1.16f, 1.16f), tile.transform.rotation * Quaternion.Euler (new Vector3 (0f, 0f, 180f))) as GameObject;
 		tile9.name="109";
 		Mesh m9 = tile9.GetComponent<MeshFilter> ().mesh;
 		rotategraphiconmesh (m9);
+		LineRenderer l9=new LineRenderer(); 
+		AddLineRenderer(tile9,l9,tile9.transform.position,tile9.transform.eulerAngles);
+
 		GameObject tile10 =Instantiate (tile, tile.transform.position+new Vector3 (1.16f, 0.581f, 0.581f), tile.transform.rotation * Quaternion.Euler (new Vector3 (90f, 0f, 0f))) as GameObject;
 		tile10.name="110";
+		LineRenderer l10=new LineRenderer(); 
+		AddLineRenderer(tile10,l10,tile10.transform.position,tile10.transform.eulerAngles);
+
 		GameObject tile11 =Instantiate (tile, tile.transform.position+new Vector3 (1.16f, 0.581f, 1.743f), tile.transform.rotation * Quaternion.Euler (new Vector3 (-90f, 0f, 0f))) as GameObject;
 		tile11.name="111";
 	}
@@ -244,6 +278,34 @@ public class ThreeDimensionalpolyhedra : MonoBehaviour {
 
 		return kleinpoint;
 	}
+
+	public Vector3[] pointsrotatedandtranslated(Vector3 translation,Vector3 rotation)
+	{
+		Vector3[] output = new Vector3[a.vertices.Count];
+		print ("a.vertice.count " + a.vertices.Count);
+		Vector3[] b = new Vector3[a.vertices.Count];
+		for (int i = 0; i < output.Length; i++) 
+		{
+			b[i] = ptok (a.vertices [i]);
+			output [i] = Quaternion.Euler (rotation) * b[i] + translation;
+		}
+		return output;
+	}
+
+	public void AddLineRenderer(GameObject gameobject, LineRenderer linerenderer, Vector3 translation,Vector3 rotation)
+	{
+		gameobject.AddComponent<LineRenderer> ();
+		linerenderer = gameobject.GetComponent<LineRenderer> ();
+		linerenderer.material = new Material (Shader.Find ("Particles/Additive"));
+		linerenderer.SetColors (Color.red, Color.red);
+		linerenderer.SetWidth (0.02f, 0.02f);
+		Vector3[] o = pointsrotatedandtranslated (translation,rotation);
+		linerenderer.SetVertexCount (o.Length);
+		for (int i = 0; i < o.Length; i++) {
+			linerenderer.SetPosition (i, o[i]);
+		}
+	}
+
 }
 
 
