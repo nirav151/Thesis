@@ -32,7 +32,7 @@ public class Modellingpointmovement : MonoBehaviour {
 	{
 
 
-		if (Input.GetMouseButtonDown (0)) {
+//		if (Input.GetMouseButtonDown (0)) {
 			ray = Camera.main.ScreenPointToRay (Input.mousePosition);
 			if (Physics.Raycast (ray, out hit)) 
 			{
@@ -93,7 +93,7 @@ public class Modellingpointmovement : MonoBehaviour {
 					GameObject.Find ("10").GetComponent<LineRenderer> ().SetWidth(0.05f,0.05f);
 				}
 			}
-		}
+		//}
 	}
 
 	public Vector3 ptok(Vector3 poincarepoint)

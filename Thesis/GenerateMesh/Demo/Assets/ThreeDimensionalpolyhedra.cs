@@ -11,6 +11,8 @@ public class ThreeDimensionalpolyhedra : MonoBehaviour {
 	LineRenderer linerenderer;
 	LineRenderer linerenderer2;
 	Polygon a;
+	Ray ray;
+	RaycastHit hit;
 	// Use this for initialization
 	void Start () {
 		RenderSquare (material);
@@ -22,7 +24,7 @@ public class ThreeDimensionalpolyhedra : MonoBehaviour {
 	void Update () {
 		Mesh m1 = tile.GetComponent<MeshFilter> ().mesh;
 		rotategraphiconmesh (m1);
-
+		MakeTileSelection ();
 	}
 
 	public Polygon ConstructCenterPolygon(int n, int k){
@@ -306,6 +308,48 @@ public class ThreeDimensionalpolyhedra : MonoBehaviour {
 		}
 	}
 
+	public void MakeTileSelection()
+	{
+		//GameObject g = GameObject.Find ("Sphere-3D");
+		ray = Camera.main.ScreenPointToRay (Input.mousePosition);
+		if (Physics.Raycast (ray, out hit)) {
+			if (hit.collider.name == "0") {
+				defaultLineWidth ();
+				GameObject.Find ("102").GetComponent<LineRenderer> ().SetWidth (0.05f, 0.05f);
+			}
+			else if (hit.collider.name == "5") {
+				defaultLineWidth ();
+				GameObject.Find ("101").GetComponent<LineRenderer> ().SetWidth (0.05f, 0.05f);
+			}
+			else if (hit.collider.name == "9") {
+				defaultLineWidth ();
+				GameObject.Find ("110").GetComponent<LineRenderer> ().SetWidth (0.05f, 0.05f);
+			}
+			else if (hit.collider.name == "10") {
+				defaultLineWidth ();
+				GameObject.Find ("109").GetComponent<LineRenderer> ().SetWidth (0.05f, 0.05f);
+			}
+			else if (hit.collider.name == "11") {
+				defaultLineWidth ();
+				GameObject.Find ("107").GetComponent<LineRenderer> ().SetWidth (0.05f, 0.05f);
+			}
+			else if (hit.collider.name == "12") {
+				defaultLineWidth ();
+				GameObject.Find ("104").GetComponent<LineRenderer> ().SetWidth (0.05f, 0.05f);
+			}
+		}
+	}
+
+
+	public void defaultLineWidth()
+	{
+		GameObject.Find ("101").GetComponent<LineRenderer> ().SetWidth (0.02f, 0.02f);
+		GameObject.Find ("102").GetComponent<LineRenderer> ().SetWidth (0.02f, 0.02f);
+		GameObject.Find ("104").GetComponent<LineRenderer> ().SetWidth (0.02f, 0.02f);
+		GameObject.Find ("107").GetComponent<LineRenderer> ().SetWidth (0.02f, 0.02f);
+		GameObject.Find ("109").GetComponent<LineRenderer> ().SetWidth (0.02f, 0.02f);
+		GameObject.Find ("110").GetComponent<LineRenderer> ().SetWidth (0.02f, 0.02f);
+	}
 }
 
 
