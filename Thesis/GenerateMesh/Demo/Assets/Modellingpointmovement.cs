@@ -8,7 +8,7 @@ public class Modellingpointmovement : MonoBehaviour {
 	public GameObject Sphere3d;
 	public int p=4;
 	public int q=6;
-	public float cosp,sinp,coshq,sinhq,cosh2q,sinh2q;
+	public float cosp,sinp,coshq,sinhq,cosh2q,sinh2q,cos2p,sin2p;
 	public int tile_clicked=0;
 	public float[,] transformationmatrix = new float[3, 3];
 	// Use this for initialization
@@ -16,14 +16,16 @@ public class Modellingpointmovement : MonoBehaviour {
 	void Start () {
 		cosp=Mathf.Cos(Mathf.PI/p);
 		sinp=Mathf.Sin(Mathf.PI/p);
+		cos2p = Mathf.Cos (2*Mathf.PI/p);
+		sin2p = Mathf.Sin (2*Mathf.PI/p);
 		coshq=Mathf.Cos(Mathf.PI/q)/sinp;
 		sinhq=Mathf.Sqrt(coshq*coshq-1);
 		cosh2q = 2 * coshq * coshq - 1;
 		sinh2q = 2 * sinhq * coshq;
 		print ("cosh2q " + cosh2q);
 		print("sinh2q "+ sinh2q);
-		print ("coshq " + coshq);
-		print ("sinhq " + sinhq);
+		print ("cos2p " + cos2p);
+		print ("sin2p " + sin2p);
 	}
 
 	
@@ -139,14 +141,14 @@ public class Modellingpointmovement : MonoBehaviour {
 			break;
 
 		case 12:
-			transformationmatrix [0, 0] = -cosh2q*0.5f;
-			transformationmatrix [0,1]= -cosh2q*0.866f;
+			transformationmatrix [0, 0] = -cosh2q*0.25f;
+			transformationmatrix [0,1]= -cosh2q*0.96f;
 			transformationmatrix[0,2]= sinh2q;
-			transformationmatrix [1,0]=0.866f;
-			transformationmatrix [1,1]=0.5f;
+			transformationmatrix [1,0]=-0.96f;
+			transformationmatrix [1,1]=0.25f;
 			transformationmatrix [1,2]=0f;
-			transformationmatrix [2,0]=-sinh2q*0.866f;
-			transformationmatrix [2,1]=-sinh2q*0.5f;
+			transformationmatrix [2,0]=-sinh2q*0.25f;
+			transformationmatrix [2,1]=-sinh2q*0.96f;
 			transformationmatrix [2,2]=cosh2q;
 			break;
 		
@@ -163,15 +165,15 @@ public class Modellingpointmovement : MonoBehaviour {
 			break;
 
 		case 10:
-			transformationmatrix [0, 0] = -cosh2q;
-			transformationmatrix [0,1]= 0f;
-			transformationmatrix[0,2]= -sinh2q;
-			transformationmatrix [1,0]=0f;
-			transformationmatrix [1,1]=-1f;
-			transformationmatrix [1,2]=0f;
-			transformationmatrix [2,0]=-sinh2q;
-			transformationmatrix [2,1]=0f;
-			transformationmatrix [2,2]=-cosh2q;
+			transformationmatrix [0, 0] = 0;
+			transformationmatrix [0,1]= -cosh2q;
+			transformationmatrix[0,2]= sinh2q;
+			transformationmatrix [1,0]=1f;
+			transformationmatrix [1,1]= 0f;
+			transformationmatrix [1,2]= 0f;
+			transformationmatrix [2,0]= 0f;
+			transformationmatrix [2,1]= -sinh2q;
+			transformationmatrix [2,2]= cosh2q;
 			break;
 
 
@@ -259,6 +261,7 @@ public class Modellingpointmovement : MonoBehaviour {
 		print ("kleinpoint " + kleinpoint);
 		Vector3 finalpoint=new Vector3(0,0,0);
 		Vector3 point=TransformationPoint (twodimensionalpoint);
+		print ("tile no"+tile_no_clicked);
 		switch (tile_no_clicked)
 		{
 
@@ -274,8 +277,8 @@ public class Modellingpointmovement : MonoBehaviour {
 			break;
 		case 10:
 			offset = new Vector3 (1.16f, 1.16f, 4.16f);
-			finalpoint.x = -point.y;
-			finalpoint.z = -point.x;
+			finalpoint.x = point.x;
+			finalpoint.z = point.y;
 			break;
 		case 11:
 			offset = new Vector3 (0.581f, 1.79f, 4.16f);
