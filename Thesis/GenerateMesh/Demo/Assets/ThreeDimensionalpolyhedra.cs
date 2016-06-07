@@ -28,17 +28,17 @@ public class ThreeDimensionalpolyhedra : MonoBehaviour {
 		GameObject g = GameObject.Find ("Main Camera");
 
 		if (Input.GetKey (KeyCode.A)) {
-			g.transform.Rotate (Vector3.up * 30f * Time.deltaTime);
+			g.transform.RotateAround (new Vector3(0.581f,1.162f,5.581f),-Vector3.up ,20f * Time.deltaTime);
 
 		}
 		if (Input.GetKey (KeyCode.D)) {
-			g.transform.Rotate (-Vector3.up * 30f * Time.deltaTime);
+			g.transform.RotateAround (new Vector3(0.581f,1.162f,5.581f),Vector3.up ,20f * Time.deltaTime);
 		}
 		if (Input.GetKey (KeyCode.W)) {
-			g.transform.Rotate (Vector3.left * 30f * Time.deltaTime);
+			g.transform.RotateAround (new Vector3(0.581f,1.162f,5.581f),-Vector3.forward ,20f * Time.deltaTime);
 		}
 		if (Input.GetKey (KeyCode.S)) {
-			g.transform.Rotate (-Vector3.left * 30f * Time.deltaTime);
+			g.transform.RotateAround (new Vector3(0.581f,1.162f,5.581f),Vector3.forward ,20f * Time.deltaTime);
 		}
 
 	}
@@ -142,7 +142,7 @@ public class ThreeDimensionalpolyhedra : MonoBehaviour {
 		msh.normals = normals;
 		tile.GetComponent<MeshFilter>().mesh = msh;
 
-		tile.transform.position = new Vector3 (0f,0f,3f);
+		tile.transform.position = new Vector3 (0f,0f,5f);
 
 	}
 
