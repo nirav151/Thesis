@@ -263,27 +263,27 @@ public class Modellingpointmovement : MonoBehaviour {
 		{
 
 		case 5:
-			offset = new Vector3 (0f, 1.16f, 5f);
+			offset = new Vector3 (0f, 1.16f, 9f);
 			finalpoint.x = point.x;
 			finalpoint.z = point.y;
 			break;
 		case 9:
-			offset= new Vector3 (1.16f, 0.561f, 5.58f);
+			offset= new Vector3 (1.16f, 0.561f, 9.58f);
 			finalpoint.y = point.y;
 			finalpoint.x = -point.x;
 			break;
 		case 10:
-			offset = new Vector3 (1.16f, 1.16f, 6.16f);
+			offset = new Vector3 (1.16f, 1.16f, 10.16f);
 			finalpoint.x = -point.y;
 			finalpoint.z = -point.x;
 			break;
 		case 11:
-			offset = new Vector3 (0.581f, 1.79f, 6.16f);
+			offset = new Vector3 (0.581f, 1.79f, 10.16f);
 			finalpoint.y = point.y;
 			finalpoint.x = -point.x;
 			break;
 		case 12:
-			offset = new Vector3 (0f, 1.743f, 5.581f);
+			offset = new Vector3 (0f, 1.743f, 10.581f);
 			finalpoint.y = point.y;
 			finalpoint.x = -point.x;
 			break;
@@ -300,7 +300,7 @@ public class Modellingpointmovement : MonoBehaviour {
 		finalpoint.y = kleinpoint.y;
 		finalpoint.z = -kleinpoint.x;
 		print ("final klein point " + finalpoint);
-		return finalpoint + new Vector3(0.591f,0.591f,5f);;
+		return finalpoint + new Vector3(0.591f,0.591f,9f);;
 	}
 		
 

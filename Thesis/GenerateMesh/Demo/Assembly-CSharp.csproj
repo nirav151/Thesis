@@ -46,6 +46,7 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Angelsanddemonpolyhedron.cs" />
+     <Compile Include="Assets\ButtonClick.cs" />
      <Compile Include="Assets\ColorChange.cs" />
      <Compile Include="Assets\LineRender.cs" />
      <Compile Include="Assets\Modellingpointmovement.cs" />
