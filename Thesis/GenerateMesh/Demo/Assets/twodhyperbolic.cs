@@ -160,14 +160,13 @@ public class twodhyperbolic : MonoBehaviour
 			float angleC = (float)(Mathf.PI / 2.0);
 
 			// For a regular tiling, we need to compute the distance s
-			// from A to B
+			// from A to B	
 
 			float sinA = Mathf.Sin(angleA);
 			float sinB = Mathf.Sin(angleB);
 			float s =
 				Mathf.Sin(angleC - angleB - angleA) /
 				Mathf.Sqrt(1 - sinB * sinB - sinA * sinA);
-
 			// Determine the coordinates of the n vertices of the n-gon.
 			// They're all at distance s from center of the Poincare disk
 
@@ -414,16 +413,19 @@ public class twodhyperbolic : MonoBehaviour
 			number++;
 			Mesh msh = new Mesh();
 			tile.AddComponent<MeshFilter> ();
-			tile.AddComponent<MeshRenderer> ().material=mat;
+
 			msh.vertices = vertices;
 			msh.triangles = triangles;
 			tile.AddComponent<MeshCollider> ();
 			tile.GetComponent<MeshCollider> ().sharedMesh = msh;
 
-			if (sides == 4 && polygons_at_vertice == 6) 
-			{
+			if (sides == 4 && polygons_at_vertice == 6) {
+				tile.AddComponent<MeshRenderer> ().material = mat;
 				Vector2[] uvpoints = renderpoints (a);
 				msh.uv = uvpoints;
+			} else {
+				Color newColor = new Color( Random.value, Random.value, Random.value, 1.0f );
+				tile.AddComponent<MeshRenderer>().material.color= newColor;
 			}
 			tile.GetComponent<MeshFilter>().mesh = msh;
 			//msh.vertices = new Vector3[]{a.vertices [0],a.vertices [1],a.vertices [2],a.vertices [3]};
@@ -753,7 +755,7 @@ public class twodhyperbolic : MonoBehaviour
 
 		public void DestroyPreviousGameObjects()
 		{
-			for (int i = 0; i < 30; i++) {
+			for (int i = 0; i < 100; i++) {
 				GameObject g=GameObject.Find (i.ToString ());
 				Destroy (g);
 				number = 0;
