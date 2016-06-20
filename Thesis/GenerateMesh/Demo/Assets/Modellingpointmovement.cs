@@ -139,39 +139,39 @@ public class Modellingpointmovement : MonoBehaviour {
 			break;
 
 		case 12:
-			transformationmatrix [0, 0] = -cosh2q*0.5f;
-			transformationmatrix [0,1]= -cosh2q*0.866f;
-			transformationmatrix[0,2]= sinh2q;
-			transformationmatrix [1,0]=0.866f;
-			transformationmatrix [1,1]=0.5f;
-			transformationmatrix [1,2]=0f;
-			transformationmatrix [2,0]=-sinh2q*0.866f;
-			transformationmatrix [2,1]=-sinh2q*0.5f;
-			transformationmatrix [2,2]=cosh2q;
+			transformationmatrix [0, 0] = -0.99f;
+			transformationmatrix [0,1]= 1.72f;
+			transformationmatrix[0,2]= -1.73f;
+			transformationmatrix [1,0]=1.73f;
+			transformationmatrix [1,1]=-0.5f;
+			transformationmatrix [1,2]=1.48f;
+			transformationmatrix [2,0]=-1.73f;
+			transformationmatrix [2,1]=1.49f;
+			transformationmatrix [2,2]=-2.51f;
 			break;
 		
 		case 11:
-			transformationmatrix [0, 0] = cosh2q;
-			transformationmatrix [0,1]= 0f;
-			transformationmatrix[0,2]= sinh2q;
-			transformationmatrix [1,0]=0f;
-			transformationmatrix [1,1]=-1f;
-			transformationmatrix [1,2]=0f;
-			transformationmatrix [2,0]=sinh2q;
-			transformationmatrix [2,1]=0f;
-			transformationmatrix [2,2]=-cosh2q;
+			transformationmatrix [0, 0] = -0.99f;
+			transformationmatrix [0,1]= 1.72f;
+			transformationmatrix[0,2]= -1.73f;
+			transformationmatrix [1,0]=1.73f;
+			transformationmatrix [1,1]=-0.5f;
+			transformationmatrix [1,2]=1.48f;
+			transformationmatrix [2,0]=-1.73f;
+			transformationmatrix [2,1]=1.49f;
+			transformationmatrix [2,2]=-2.51f;
 			break;
 
 		case 10:
-			transformationmatrix [0, 0] = -cosh2q;
-			transformationmatrix [0,1]= 0f;
-			transformationmatrix[0,2]= -sinh2q;
-			transformationmatrix [1,0]=0f;
-			transformationmatrix [1,1]=-1f;
-			transformationmatrix [1,2]=0f;
-			transformationmatrix [2,0]=-sinh2q;
-			transformationmatrix [2,1]=0f;
-			transformationmatrix [2,2]=-cosh2q;
+			transformationmatrix [0, 0] = 0.46f;
+			transformationmatrix [0,1]= 1f;
+			transformationmatrix[0,2]= 0.46f;
+			transformationmatrix [1,0]=1f;
+			transformationmatrix [1,1]=-0.86f;
+			transformationmatrix [1,2]=0.86f;
+			transformationmatrix [2,0]=-0.5f;
+			transformationmatrix [2,1]=0.86f;
+			transformationmatrix [2,2]=-1.43f;
 			break;
 
 
@@ -274,12 +274,15 @@ public class Modellingpointmovement : MonoBehaviour {
 			break;
 		case 10:
 			offset = new Vector3 (1.16f, 1.16f, 10.16f);
-			finalpoint.x = -point.y;
-			finalpoint.z = -point.x;
+//			Vector3 point_new = new Vector3 (0, 0, 0);
+//			point_new.x = 0.86f * point.x - 0.5f * point.y;
+//			point_new.y = 0.5f * point.x - 0.86f * point.y;
+			finalpoint.x = point.y;
+			finalpoint.z = point.x;
 			break;
 		case 11:
 			offset = new Vector3 (0.581f, 1.79f, 10.16f);
-			finalpoint.y = point.y;
+			finalpoint.y = -point.y;
 			finalpoint.x = -point.x;
 			break;
 		case 12:

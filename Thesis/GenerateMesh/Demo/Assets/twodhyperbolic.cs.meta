@@ -1,10 +1,22 @@
 fileFormatVersion: 2
 guid: ef6de044eacc642568f90a9daa857060
-timeCreated: 1458937211
+timeCreated: 1466383836
 licenseType: Free
 MonoImporter:
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - faceMaterial: {instanceID: 0}
+  - linematerial: {instanceID: 0}
+  - mat: {instanceID: 0}
+  - pval: {instanceID: 0}
+  - qval: {instanceID: 0}
+  - gobutton: {instanceID: 0}
+  - ptext: {instanceID: 0}
+  - qtext: {instanceID: 0}
+  - sphere2d: {instanceID: 0}
+  - b_464: {instanceID: 0}
+  - b_644: {instanceID: 0}
+  - b_663: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

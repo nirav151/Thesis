@@ -15,7 +15,6 @@ public class ButtonClick : MonoBehaviour {
 
 	public void HyperbolicTessellationButtonClick()
 	{
-		print ("called ");
 		Camera [] c = Camera.allCameras;
 		print ("c[0] " + c [0]);
 		c [0].transform.position = new Vector3 (0, 0, 1.46f);

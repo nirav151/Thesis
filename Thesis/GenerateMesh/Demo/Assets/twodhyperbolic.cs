@@ -30,7 +30,11 @@ public class twodhyperbolic : MonoBehaviour
 		public Text ptext;
 		public Text qtext;
 		public GameObject sphere2d;
-		bool modelling_mode = false;
+		public GameObject sphere3d;
+		public Button b_464;
+		public Button b_644;
+		public Button b_663;
+		public static bool modelling_mode = false;
 		void Start()
 		{
 	//		lineRenderer = gameObject.AddComponent<LineRenderer> ();
@@ -408,7 +412,13 @@ public class twodhyperbolic : MonoBehaviour
 					lineRenderer.SetPosition (i, Poincarepoints.vertices [i]);
 				}
 			}
-			
+			if (!modelling_mode) {
+				lineRenderer.SetVertexCount (Poincarepoints.vertices.Count);
+				for (int i = 0; i < Poincarepoints.vertices.Count; i++) 
+				{
+					lineRenderer.SetPosition (i, Poincarepoints.vertices [i]);
+				}
+			}
 			tile.tag = "Player";
 			number++;
 			Mesh msh = new Mesh();
@@ -419,13 +429,15 @@ public class twodhyperbolic : MonoBehaviour
 			tile.AddComponent<MeshCollider> ();
 			tile.GetComponent<MeshCollider> ().sharedMesh = msh;
 
-			if (sides == 4 && polygons_at_vertice == 6) {
-				tile.AddComponent<MeshRenderer> ().material = mat;
+			if (sides == 4 && polygons_at_vertice == 6 && modelling_mode) {
+				tile.AddComponent<MeshRenderer>().material = mat;
 				Vector2[] uvpoints = renderpoints (a);
 				msh.uv = uvpoints;
-			} else {
-				Color newColor = new Color( Random.value, Random.value, Random.value, 1.0f );
-				tile.AddComponent<MeshRenderer>().material.color= newColor;
+			} else 
+			{
+				Color newcolor = new Color (Random.Range(0f,1f), Random.Range(0f,1f), Random.Range(0f,1f));
+				tile.AddComponent<MeshRenderer> ().material.color = newcolor;
+
 			}
 			tile.GetComponent<MeshFilter>().mesh = msh;
 			//msh.vertices = new Vector3[]{a.vertices [0],a.vertices [1],a.vertices [2],a.vertices [3]};
@@ -513,8 +525,9 @@ public class twodhyperbolic : MonoBehaviour
 
 			return final;
 		}
+			
 
-
+	
 	// new version
 	/*
 	public Vector2[] renderpoints(Polygon polygon)
@@ -665,6 +678,9 @@ public class twodhyperbolic : MonoBehaviour
 			pval.gameObject.SetActive (false);
 			qval.gameObject.SetActive (false);
 			gobutton.gameObject.SetActive (false);
+			b_464.gameObject.SetActive (false);
+			b_644.gameObject.SetActive (false);
+			b_663.gameObject.SetActive (false);
 
 		}
 
@@ -684,6 +700,10 @@ public class twodhyperbolic : MonoBehaviour
 			pval.gameObject.SetActive (true);
 			qval.gameObject.SetActive (true);
 			gobutton.gameObject.SetActive (true);
+			b_464.gameObject.SetActive (false);
+			b_644.gameObject.SetActive (false);
+			b_663.gameObject.SetActive (false);
+
 
 		}
 
@@ -742,6 +762,7 @@ public class twodhyperbolic : MonoBehaviour
 		{
 			modelling_mode = true;
 			sphere2d.SetActive (true);
+			sphere3d.SetActive (true);
 			Camera [] c = Camera.allCameras;
 			print ("c[0] " + c [0]);
 			c [0].transform.position = new Vector3 (0, 0, 1.46f);
@@ -751,7 +772,37 @@ public class twodhyperbolic : MonoBehaviour
 			sides = 4;
 			polygons_at_vertice = 6;
 			GenerateTessellation ();
+			ptext.gameObject.SetActive (false);
+			qtext.gameObject.SetActive (false);
+			pval.gameObject.SetActive (false);
+			qval.gameObject.SetActive (false);
+			gobutton.gameObject.SetActive (false);
+			b_464.gameObject.SetActive (false);
+			b_644.gameObject.SetActive (false);
+			b_663.gameObject.SetActive (false);
 		}
+
+		public void TriplyButtonClick()
+		{
+			sphere3d.SetActive (false);
+			b_464.gameObject.SetActive (true);
+			b_644.gameObject.SetActive (true);
+			b_663.gameObject.SetActive (true);
+			ptext.gameObject.SetActive (false);
+			qtext.gameObject.SetActive (false);
+			pval.gameObject.SetActive (false);
+			qval.gameObject.SetActive (false);
+			gobutton.gameObject.SetActive (false);
+			DestroyPreviousGameObjects ();
+			sphere2d.SetActive (false);
+			Camera [] c = Camera.allCameras;
+			print ("c[0] " + c [0]);
+			c [1].transform.position = new Vector3 (2.91f, 1.92f, -0.72f);
+			c [1].rect = new Rect (0, 0, 1f, 1f);
+			c [0].rect = new Rect (0, 0, 0, 0);
+
+		}
+
 
 		public void DestroyPreviousGameObjects()
 		{
