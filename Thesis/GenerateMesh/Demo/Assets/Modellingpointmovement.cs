@@ -117,7 +117,7 @@ public class Modellingpointmovement : MonoBehaviour {
 		transformationmatrix [2,0]=-sinh2q;
 		transformationmatrix [2,1]=0f;
 		transformationmatrix [2,2]=cosh2q;
-
+		
 		switch (tile_clicked)
 		{
 		case 9:
@@ -125,7 +125,7 @@ public class Modellingpointmovement : MonoBehaviour {
 			transformationmatrix [1,1]=-1f;
 			transformationmatrix [2,2]=-cosh2q;
 			break;
-
+			
 		case 5:
 			transformationmatrix [0, 0] = 0f;
 			transformationmatrix [0, 1] = -cosh2q;
@@ -137,71 +137,78 @@ public class Modellingpointmovement : MonoBehaviour {
 			transformationmatrix [2, 1] = -sinh2q;
 			transformationmatrix [2, 2] = cosh2q;
 			break;
-
+			
 		case 12:
-			transformationmatrix [0, 0] = -0.99f;
-			transformationmatrix [0,1]= 1.72f;
-			transformationmatrix[0,2]= -1.73f;
-			transformationmatrix [1,0]=1.73f;
-			transformationmatrix [1,1]=-0.5f;
-			transformationmatrix [1,2]=1.48f;
-			transformationmatrix [2,0]=-1.73f;
-			transformationmatrix [2,1]=1.49f;
-			transformationmatrix [2,2]=-2.51f;
+
+			transformationmatrix [0, 0] = -cosh2q;
+			transformationmatrix [0,1]= 0;
+			transformationmatrix[0,2]= -sinh2q;
+			transformationmatrix [1,0]=0;
+			transformationmatrix [1,1]=-1;
+			transformationmatrix [1,2]=0f;
+			transformationmatrix [2,0]=-sinh2q;
+			transformationmatrix [2,1]=0;
+			transformationmatrix [2,2]=-cosh2q;
+
 			break;
-		
+			
 		case 11:
-			transformationmatrix [0, 0] = -0.99f;
-			transformationmatrix [0,1]= 1.72f;
-			transformationmatrix[0,2]= -1.73f;
-			transformationmatrix [1,0]=1.73f;
-			transformationmatrix [1,1]=-0.5f;
-			transformationmatrix [1,2]=1.48f;
-			transformationmatrix [2,0]=-1.73f;
-			transformationmatrix [2,1]=1.49f;
-			transformationmatrix [2,2]=-2.51f;
-			break;
 
+
+			transformationmatrix [0, 0] = -cosh2q;
+			transformationmatrix [0,1]= 0;
+			transformationmatrix[0,2]= -sinh2q;
+			transformationmatrix [1,0]=0;
+			transformationmatrix [1,1]=-1;
+			transformationmatrix [1,2]=0f;
+			transformationmatrix [2,0]=-sinh2q;
+			transformationmatrix [2,1]=0;
+			transformationmatrix [2,2]=-cosh2q;
+
+			break;
+			
 		case 10:
-			transformationmatrix [0, 0] = 0.46f;
-			transformationmatrix [0,1]= 1f;
-			transformationmatrix[0,2]= 0.46f;
-			transformationmatrix [1,0]=1f;
-			transformationmatrix [1,1]=-0.86f;
-			transformationmatrix [1,2]=0.86f;
-			transformationmatrix [2,0]=-0.5f;
-			transformationmatrix [2,1]=0.86f;
-			transformationmatrix [2,2]=-1.43f;
+
+			transformationmatrix [0, 0] = -cosh2q;
+			transformationmatrix [0,1]= 0;
+			transformationmatrix[0,2]= -sinh2q;
+			transformationmatrix [1,0]=0;
+			transformationmatrix [1,1]=-1;
+			transformationmatrix [1,2]=0;
+			transformationmatrix [2,0]=-sinh2q;
+			transformationmatrix [2,1]=0f;
+			transformationmatrix [2,2]=-cosh2q;
+
 			break;
-
-
+			
+			
 		}
 		print ("poincare point " + pointin2d.x + "  "+ pointin2d.y + " " + pointin2d.z);
 		// convert poincare point to hyperboloid point
 		Vector3 hyperboloidpoint = ptoh (pointin2d);
 		print ("hyperboloid point " + hyperboloidpoint.x +"  "+ hyperboloidpoint.y +" "+hyperboloidpoint.z);
-
+		
 		// applying transformation....create a vector3 to save intermediate result.
-
+		
 		// transformation
 		float[,] intermediateresult=matrixmult(transformationmatrix,ConvertVector3tomatrix(hyperboloidpoint));
-
+		
 		Vector3 intermediatepoint = ConvertmatrixtoVector3(intermediateresult);
-	
+		
 		print ("transformed hyperboloid point " + intermediatepoint.x+ " "+intermediatepoint.y +" "+intermediatepoint.z);
-
-//		Vector3 intermediatepoint_1 = new Vector3();
-//		intermediatepoint_1.x = -hyperboloidpoint.x * cosh2q - hyperboloidpoint.z * sinh2q;
-//		intermediatepoint_1.y = -hyperboloidpoint.y;
-//		intermediatepoint_1.z = -hyperboloidpoint.x * sinh2q - hyperboloidpoint.z * cosh2q;
-//		print ("transformed hyperboloid point oldmethod " + intermediatepoint_1);
-
-
+		
+		//		Vector3 intermediatepoint_1 = new Vector3();
+		//		intermediatepoint_1.x = -hyperboloidpoint.x * cosh2q - hyperboloidpoint.z * sinh2q;
+		//		intermediatepoint_1.y = -hyperboloidpoint.y;
+		//		intermediatepoint_1.z = -hyperboloidpoint.x * sinh2q - hyperboloidpoint.z * cosh2q;
+		//		print ("transformed hyperboloid point oldmethod " + intermediatepoint_1);
+		
+		
 		Vector3 finalkleinpoint = htok (intermediatepoint);
 		print ("final klein  " + finalkleinpoint);
 		return finalkleinpoint;
-
-
+		
+		
 	}
 		
 
@@ -254,14 +261,14 @@ public class Modellingpointmovement : MonoBehaviour {
 		
 	public Vector3 get3dequivalentpoint(Vector3 twodimensionalpoint,int tile_no_clicked)
 	{
-		Vector3 offset = new Vector3 ();
+		Vector3 offset = new Vector3 (0,0,0);
 		Vector3 kleinpoint = ptok (twodimensionalpoint);
 		print ("kleinpoint " + kleinpoint);
 		Vector3 finalpoint=new Vector3(0,0,0);
 		Vector3 point=TransformationPoint (twodimensionalpoint);
 		switch (tile_no_clicked)
 		{
-
+			
 		case 5:
 			offset = new Vector3 (0f, 1.16f, 9f);
 			finalpoint.x = point.x;
@@ -274,25 +281,59 @@ public class Modellingpointmovement : MonoBehaviour {
 			break;
 		case 10:
 			offset = new Vector3 (1.16f, 1.16f, 10.16f);
-//			Vector3 point_new = new Vector3 (0, 0, 0);
-//			point_new.x = 0.86f * point.x - 0.5f * point.y;
-//			point_new.y = 0.5f * point.x - 0.86f * point.y;
-			finalpoint.x = point.y;
-			finalpoint.z = point.x;
+
+			point=ktop (point);
+			finalpoint.y = point.x;
+			finalpoint.x = -point.y;
+			Vector3 finalpoint_1=TransformationPoint(finalpoint);
+			print ("finalpoint_1" +finalpoint_1);
+			finalpoint.z=-finalpoint_1.x;
+			finalpoint.x=-finalpoint_1.y;
+			finalpoint.y=0;
 			break;
 		case 11:
 			offset = new Vector3 (0.581f, 1.79f, 10.16f);
-			finalpoint.y = -point.y;
-			finalpoint.x = -point.x;
+			point=ktop(point);
+			
+			finalpoint.y = point.x;
+			finalpoint.x = -point.y;
+			Vector3 finalpoint_2=TransformationPoint(finalpoint);
+			finalpoint_2=ktop (finalpoint_2);
+			
+			print ("fp 2 "+finalpoint_2);
+			finalpoint.y = finalpoint_2.x;
+			finalpoint.x = -finalpoint_2.y;
+			Vector3 finalpoint_3=TransformationPoint(finalpoint);
+			finalpoint.y=-finalpoint_3.x;
+			finalpoint.z=-finalpoint_3.y;
+			finalpoint.x=0;
+			//			finalpoint=ktop (finalpoint);
+			//			finalpoint.y=finalpoint.x;
+			//			finalpoint.x=-finalpoint.y;
+			//			Vector3 finalpoint_2=TransformationPoint(finalpoint);
+
 			break;
 		case 12:
-			offset = new Vector3 (0f, 1.743f, 10.581f);
-			finalpoint.y = point.y;
-			finalpoint.x = -point.x;
+			offset = new Vector3 (0f, 1.743f, 9.581f);
+			point=ktop (point);
+			finalpoint.y = point.x;
+			finalpoint.x = -point.y;
+			Vector3 finalpoint_4=TransformationPoint(finalpoint);
+			finalpoint_4=ktop (finalpoint_4);
+			finalpoint.y = finalpoint_4.x;
+			finalpoint.x = -finalpoint_4.y;
+			Vector3 finalpoint_5=TransformationPoint(finalpoint);
+			finalpoint_5=ktop (finalpoint_5);
+			finalpoint.y = finalpoint_5.x;
+			finalpoint.x = -finalpoint_5.y;
+			Vector3 finalpoint_6=TransformationPoint(finalpoint);
+			finalpoint.x=finalpoint_6.x;
+			finalpoint.y=-finalpoint_6.y;
+			finalpoint.z=0;
 			break;
 		}
-
-
+		
+		
 		return finalpoint+offset;
 	}
 
@@ -365,5 +406,19 @@ public class Modellingpointmovement : MonoBehaviour {
 		GameObject.Find ("11").GetComponent<LineRenderer> ().SetWidth (0.02f, 0.02f);
 		GameObject.Find ("12").GetComponent<LineRenderer> ().SetWidth (0.02f, 0.02f);
 	}
+	public Vector3 ktop(Vector3 b)
+	{
+		return 
+				new Vector3 (
+				b.x / (1 + Mathf.Sqrt (1 - b.x * b.x - b.y * b.y)),
+				b.y / (1 + Mathf.Sqrt (1 - b.x * b.x - b.y * b.y)),
+				0
+				
+		);
 
+			
+			
+
+	}
+	
 }
