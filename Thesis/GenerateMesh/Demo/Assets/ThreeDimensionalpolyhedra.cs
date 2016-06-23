@@ -15,6 +15,7 @@ public class ThreeDimensionalpolyhedra : MonoBehaviour
 		Polygon a;
 		Ray ray;
 		RaycastHit hit;
+		int number=0;
 		// Use this for initialization
 		void Start () 
 		{
@@ -25,10 +26,11 @@ public class ThreeDimensionalpolyhedra : MonoBehaviour
 	// Update is called once per frame
 		void Update () {
 
-				if (twodhyperbolic.modelling_mode) {
-					Mesh m1 = tile.GetComponent<MeshFilter> ().mesh;
-					rotategraphiconmesh (m1);
-					MakeTileSelection ();
+			if (twodhyperbolic.modelling_mode) {
+				Mesh m1 = tile.GetComponent<MeshFilter> ().mesh;
+				rotategraphiconmesh (m1);
+				MakeTileSelection ();
+			}
 					GameObject g = GameObject.Find ("Main Camera");
 
 					if (Input.GetKey (KeyCode.A)) {
@@ -44,7 +46,6 @@ public class ThreeDimensionalpolyhedra : MonoBehaviour
 					if (Input.GetKey (KeyCode.S)) {
 						g.transform.RotateAround (new Vector3(0.581f,1.162f,9.581f),Vector3.forward ,20f * Time.deltaTime);
 					}
-				}
 			
 
 		}
@@ -97,6 +98,8 @@ public class ThreeDimensionalpolyhedra : MonoBehaviour
 				}
 			tile.AddComponent<MeshCollider> ();
 			tile.tag="Player";
+			int name = 100 + number;
+			tile.name = name.ToString ();
 			a = ConstructCenterPolygon (4, 6);
 			Vector3 center = CenterofPolygon (a);
 			print ("center " + center);
@@ -204,8 +207,17 @@ public class ThreeDimensionalpolyhedra : MonoBehaviour
 
 		public void Make464(Vector3 translation)
 		{
+			int name;
+			if (translation.x != 0 && translation.y != 0 && translation.z != 0) {
+				GameObject tile0 = Instantiate (tile, tile.transform.position + translation, Quaternion.Euler (new Vector3 (0f, 0f, 0f))) as GameObject;
+				number++;
+				name = 100 + number;
+				tile0.name=name.ToString();
+			}
 			tile1 =Instantiate (tile, tile.transform.position+new Vector3 (0f, 1.16f, 0f)+translation, tile.transform.rotation * Quaternion.Euler (new Vector3 (0f, 0f, 180f))) as GameObject;
-			tile1.name="101";
+			number++;
+			name = 100 + number;
+			tile1.name=name.ToString();
 			if (!twodhyperbolic.modelling_mode) {
 				Color newcolor = new Color (Random.Range(0f,1f), Random.Range(0f,1f), Random.Range(0f,1f));
 				tile1.GetComponent<MeshRenderer> ().material.color = newcolor;
@@ -226,7 +238,9 @@ public class ThreeDimensionalpolyhedra : MonoBehaviour
 			Mesh m1 = tile1.GetComponent<MeshFilter> ().mesh;
 			rotategraphiconmesh (m1);
 			tile2 =Instantiate (tile, tile.transform.position+new Vector3 (0.581f, 0.581f, 0f)+translation, tile.transform.rotation * Quaternion.Euler (new Vector3 (0f, 0f, 90f))) as GameObject;
-			tile2.name="102";
+			number++;
+			name = 100 + number;
+			tile2.name=name.ToString();
 			LineRenderer l2=new LineRenderer();
 			AddLineRenderer(tile2,l2,tile2.transform.position,tile2.transform.eulerAngles);
 			if (!twodhyperbolic.modelling_mode) {
@@ -235,14 +249,18 @@ public class ThreeDimensionalpolyhedra : MonoBehaviour
 			}
 
 			tile3 =Instantiate (tile, tile.transform.position+new Vector3 (-0.581f, 0.581f, 0f)+translation, tile.transform.rotation *  Quaternion.Euler (new Vector3 (0f, 0f, 270f))) as GameObject;
-			tile3.name="103";
+			number++;
+			name = 100 + number;
+			tile3.name=name.ToString();
 			if (!twodhyperbolic.modelling_mode) {
 				Color newcolor = new Color (Random.Range(0f,1f), Random.Range(0f,1f), Random.Range(0f,1f));
 				tile3.GetComponent<MeshRenderer> ().material.color = newcolor;
 			}
 
 			tile4 =Instantiate (tile, tile.transform.position+new Vector3 (0f, 1.743f, 0.581f)+translation, tile.transform.rotation *  Quaternion.Euler (new Vector3 (90f, 0f, 0f))) as GameObject;
-			tile4.name="104";
+			number++;
+			name = 100 + number;
+			tile4.name=name.ToString();
 			LineRenderer l4=new LineRenderer(); 
 			AddLineRenderer(tile4,l4,tile4.transform.position,tile4.transform.eulerAngles);
 			if (!twodhyperbolic.modelling_mode) {
@@ -251,21 +269,27 @@ public class ThreeDimensionalpolyhedra : MonoBehaviour
 			}
 
 			tile5 =Instantiate (tile, tile.transform.position+new Vector3 (0f, 1.743f, 1.743f)+translation, tile.transform.rotation *  Quaternion.Euler (new Vector3 (270f, 0f, 0f))) as GameObject;
-			tile5.name="105";
+			number++;
+			name = 100 + number;
+			tile5.name=name.ToString();
 			if (!twodhyperbolic.modelling_mode) {
 				Color newcolor = new Color (Random.Range(0f,1f), Random.Range(0f,1f), Random.Range(0f,1f));
 				tile5.GetComponent<MeshRenderer> ().material.color = newcolor;
 			}
 		
 			tile6 =Instantiate (tile, tile.transform.position+new Vector3 (-0.581f, 1.743f, 1.16f)+translation, tile.transform.rotation * Quaternion.Euler (new Vector3 (0f, 0f, 270f))) as GameObject;
-			tile6.name="106";
+			number++;
+			name = 100 + number;
+			tile6.name=name.ToString();
 			if (!twodhyperbolic.modelling_mode) {
 				Color newcolor = new Color (Random.Range(0f,1f), Random.Range(0f,1f), Random.Range(0f,1f));
 				tile6.GetComponent<MeshRenderer> ().material.color = newcolor;
 			}
 
 			tile7 =Instantiate (tile, tile.transform.position+new Vector3 (0.581f, 1.743f, 1.16f)+translation, tile.transform.rotation * Quaternion.Euler (new Vector3 (0f, 0f, 90f))) as GameObject;
-			tile7.name="107";
+			number++;
+			name = 100 + number;
+			tile7.name=name.ToString();
 			LineRenderer l7=new LineRenderer(); 
 			AddLineRenderer(tile7,l7,tile7.transform.position,tile7.transform.eulerAngles);
 			if (!twodhyperbolic.modelling_mode) {
@@ -274,7 +298,9 @@ public class ThreeDimensionalpolyhedra : MonoBehaviour
 			}
 
 			tile8 =Instantiate (tile, tile.transform.position+new Vector3 (1.16f, 0f, 1.16f)+translation, tile.transform.rotation * Quaternion.Euler (new Vector3 (0f, 0f, 0f))) as GameObject;
-			tile8.name="108";
+			number++;
+			name = 100 + number;
+			tile8.name=name.ToString();
 			Mesh m8 = tile8.GetComponent<MeshFilter> ().mesh;
 			rotategraphiconmesh (m8);
 			if (!twodhyperbolic.modelling_mode) {
@@ -283,7 +309,9 @@ public class ThreeDimensionalpolyhedra : MonoBehaviour
 			}
 
 			tile9 =Instantiate (tile, tile.transform.position+new Vector3 (1.16f, 1.16f, 1.16f)+translation, tile.transform.rotation * Quaternion.Euler (new Vector3 (0f, 0f, 180f))) as GameObject;
-			tile9.name="109";
+			number++;
+			name = 100 + number;
+			tile9.name=name.ToString();
 			Mesh m9 = tile9.GetComponent<MeshFilter> ().mesh;
 			rotategraphiconmesh (m9);
 			LineRenderer l9=new LineRenderer(); 
@@ -294,7 +322,9 @@ public class ThreeDimensionalpolyhedra : MonoBehaviour
 			}
 		
 			tile10 =Instantiate (tile, tile.transform.position+new Vector3 (1.16f, 0.581f, 0.581f)+translation, tile.transform.rotation * Quaternion.Euler (new Vector3 (90f, 0f, 0f))) as GameObject;
-			tile10.name="110";
+			number++;
+			name = 100 + number;
+			tile10.name=name.ToString();
 			LineRenderer l10=new LineRenderer(); 
 			AddLineRenderer(tile10,l10,tile10.transform.position,tile10.transform.eulerAngles);
 			if (!twodhyperbolic.modelling_mode) {
@@ -302,7 +332,9 @@ public class ThreeDimensionalpolyhedra : MonoBehaviour
 				tile10.GetComponent<MeshRenderer> ().material.color = newcolor;
 			}
 			tile11 =Instantiate (tile, tile.transform.position+new Vector3 (1.16f, 0.581f, 1.743f)+translation, tile.transform.rotation * Quaternion.Euler (new Vector3 (-90f, 0f, 0f))) as GameObject;
-			tile11.name="111";
+			number++;
+			name = 100 + number;
+			tile11.name=name.ToString();
 
 			if (!twodhyperbolic.modelling_mode) {
 				Color newcolor = new Color (Random.Range(0f,1f), Random.Range(0f,1f), Random.Range(0f,1f));
@@ -426,20 +458,132 @@ public class ThreeDimensionalpolyhedra : MonoBehaviour
 
 		public void b_464_click()
 		{
+			DestroyTriplyGameObjects ();
 			RenderSquare (material);
+			number = 0;
 			Make464 (new Vector3(0,0,0));
+			Make464 (new Vector3 (0, 0, 2.32f));
+			Make464 (new Vector3 (2.32f, 0, 2.32f));
+			Make464 (new Vector3 (2.32f, 0, 0));
 		}
 		public void b_644_click()
 		{
 		}
 		public void b_663_click()
 		{
+			DestroyTriplyGameObjects ();
+			RenderHexagon ();
+			Make663_block (new Vector3(0,0,0));
+			Make663_block (new Vector3(-1.7f,0,0.9f));
+			Make663_block (new Vector3(0,0,1.9f));
+			Make663_block (new Vector3(-0.54f,1.5f,0.93f));
+			tile.SetActive (false);
 		}
-			public void model_Triply_setup()
+		public void model_Triply_setup()
 		{
 			RenderSquare (material);
 			Make464 (new Vector3(0,0,0));
 		}
-	
+
+		public void DestroyTriplyGameObjects()
+		{
+
+			for (int i = 100; i < 200; i++) {
+				GameObject g = GameObject.Find (i.ToString ());
+				Destroy (g);
+			}
+
+		}
+
+		public void RenderHexagon()
+		{
+			tile=new GameObject("100");
+			Mesh msh = new Mesh();
+			tile.AddComponent<MeshFilter> ();
+			tile.tag="Player";
+			int name = 100 + number;
+			tile.transform.position +=new Vector3(1.21f,1.52f,9f);
+			tile.transform.rotation *= Quaternion.Euler (new Vector3 (0, 0, 180f));
+			tile.name = name.ToString ();
+			a = ConstructCenterPolygon (6, 6);
+			Vector3 center = CenterofPolygon (a);
+			print ("center " + center);
+			Polygon b = new Polygon ();
+			for (int i=0; i<a.vertices.Count-1; i++) 
+			{
+				b.vertices.Add(ptok(a.vertices[i]));
+				print ("ptok " + ptok (a.vertices [i]).x + " "+ptok (a.vertices [i]).z) ;
+				print("first vertice"+ptok(a.vertices[i]));
+				b.vertices.Add(ptok(a.vertices[i+1]));
+				print("second vertice"+ptok(a.vertices[i+1]));
+				b.vertices.Add (ptok(center));
+			}
+			vertices = new Vector3[b.vertices.Count];
+			for (int i = 0; i < vertices.Length; i++) {
+				vertices [i] = b.vertices [i];
+			}
+			msh.vertices = vertices;
+
+
+			int[] triangles = new int[b.vertices.Count];
+			for (int i = 0; i < vertices.Length; i++) {
+				triangles [i] = i;
+			}
+			msh.triangles = triangles;
+			tile.GetComponent<MeshFilter> ().mesh = msh;
+			Color newcolor = new Color (Random.Range(0f,1f), Random.Range(0f,1f), Random.Range(0f,1f));
+			tile.AddComponent<MeshRenderer> ().material.color = newcolor;
+			Vector3[] normals=new Vector3[vertices.Length];
+			for (int i = 0; i < normals.Length; i++) {
+				normals [i] = Vector3.up;
+			}
+			msh.normals = normals;
+		}
+		public void Make663_block(Vector3 translate)
+		{
+			int name;
+			GameObject tile0 = Instantiate (tile, tile.transform.position+new Vector3 (0f, 0f, 0f)+translate, Quaternion.Euler (new Vector3 (0f, 0f, 180f))) as GameObject;
+			number++;
+			name = 100 + number;
+			tile0.name=name.ToString();
+			LineRenderer l0=new LineRenderer();
+			//AddLineRenderer(tile,l0,tile.transform.position,tile.transform.eulerAngles);
+			if (!twodhyperbolic.modelling_mode) {
+				Color newcolor = new Color (Random.Range(0f,1f), Random.Range(0f,1f), Random.Range(0f,1f));
+				tile0.GetComponent<MeshRenderer> ().material.color = newcolor;
+			}
+			tile1 =Instantiate (tile, new Vector3 (0.65f, 0.76f, 9f)+translate, Quaternion.Euler (new Vector3 (0f, 0f, 290f))) as GameObject;
+			number++;
+			name = 100 + number;
+			tile1.name=name.ToString();
+			LineRenderer l1=new LineRenderer();
+			//AddLineRenderer(tile1,l1,tile1.transform.position,tile1.transform.eulerAngles);
+			if (!twodhyperbolic.modelling_mode) {
+				Color newcolor = new Color (Random.Range(0f,1f), Random.Range(0f,1f), Random.Range(0f,1f));
+				tile1.GetComponent<MeshRenderer> ().material.color = newcolor;
+			}
+
+			tile2 =Instantiate (tile, new Vector3 (1.495f, 0.758f, 9.46f)+translate, Quaternion.Euler (new Vector3 (0f, 120f, 290f))) as GameObject;
+			number++;
+			name = 100 + number;
+			tile2.name=name.ToString();
+			LineRenderer l2=new LineRenderer();
+			//AddLineRenderer(tile2,l2,tile2.transform.position,tile2.transform.eulerAngles);
+			if (!twodhyperbolic.modelling_mode) {
+				Color newcolor = new Color (Random.Range(0f,1f), Random.Range(0f,1f), Random.Range(0f,1f));
+				tile2.GetComponent<MeshRenderer> ().material.color = newcolor;
+			}
+
+			tile3 =Instantiate (tile, new Vector3 (1.465f, 0.769f, 8.514f)+translate, Quaternion.Euler (new Vector3 (358.7f, 240f, 290f))) as GameObject;
+			number++;
+			name = 100 + number;
+			tile3.name=name.ToString();
+			LineRenderer l3=new LineRenderer();
+			//AddLineRenderer(tile3,l3,tile3.transform.position,tile3.transform.eulerAngles);
+			if (!twodhyperbolic.modelling_mode) {
+				Color newcolor = new Color (Random.Range(0f,1f), Random.Range(0f,1f), Random.Range(0f,1f));
+				tile3.GetComponent<MeshRenderer> ().material.color = newcolor;
+			}
+		}
 	}
 }

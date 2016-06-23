@@ -32,7 +32,6 @@ public class twodhyperbolic : MonoBehaviour
 		public GameObject sphere2d;
 		public GameObject sphere3d;
 		public Button b_464;
-		public Button b_644;
 		public Button b_663;
 		public static bool modelling_mode = false;
 		void Start()
@@ -679,7 +678,6 @@ public class twodhyperbolic : MonoBehaviour
 			qval.gameObject.SetActive (false);
 			gobutton.gameObject.SetActive (false);
 			b_464.gameObject.SetActive (false);
-			b_644.gameObject.SetActive (false);
 			b_663.gameObject.SetActive (false);
 
 		}
@@ -701,10 +699,7 @@ public class twodhyperbolic : MonoBehaviour
 			qval.gameObject.SetActive (true);
 			gobutton.gameObject.SetActive (true);
 			b_464.gameObject.SetActive (false);
-			b_644.gameObject.SetActive (false);
 			b_663.gameObject.SetActive (false);
-
-
 		}
 
 		public void GoButtonClick()
@@ -767,6 +762,7 @@ public class twodhyperbolic : MonoBehaviour
 			print ("c[0] " + c [0]);
 			c [0].transform.position = new Vector3 (0, 0, 1.46f);
 			c [1].transform.position = new Vector3 (2.91f, 1.92f, -0.72f);
+			c [1].transform.rotation = Quaternion.Euler (new Vector3 (4.8f,346.6f,2.6f));
 			c [0].rect = new Rect (0.5f, 0, 0.5f, 1f);
 			c [1].rect = new Rect (0, 0, 0.5f, 1f);
 			sides = 4;
@@ -778,15 +774,14 @@ public class twodhyperbolic : MonoBehaviour
 			qval.gameObject.SetActive (false);
 			gobutton.gameObject.SetActive (false);
 			b_464.gameObject.SetActive (false);
-			b_644.gameObject.SetActive (false);
 			b_663.gameObject.SetActive (false);
 		}
 
 		public void TriplyButtonClick()
 		{
+			modelling_mode = false;
 			sphere3d.SetActive (false);
 			b_464.gameObject.SetActive (true);
-			b_644.gameObject.SetActive (true);
 			b_663.gameObject.SetActive (true);
 			ptext.gameObject.SetActive (false);
 			qtext.gameObject.SetActive (false);
@@ -797,7 +792,8 @@ public class twodhyperbolic : MonoBehaviour
 			sphere2d.SetActive (false);
 			Camera [] c = Camera.allCameras;
 			print ("c[0] " + c [0]);
-			c [1].transform.position = new Vector3 (2.91f, 1.92f, -0.72f);
+			c [1].transform.position = new Vector3 (3.23f,3.4f,-3.39f);
+			c [1].transform.rotation = Quaternion.Euler (new Vector3 (8.19f,353.28f,0.847f));
 			c [1].rect = new Rect (0, 0, 1f, 1f);
 			c [0].rect = new Rect (0, 0, 0, 0);
 
@@ -806,7 +802,7 @@ public class twodhyperbolic : MonoBehaviour
 
 		public void DestroyPreviousGameObjects()
 		{
-			for (int i = 0; i < 100; i++) {
+			for (int i = 0; i < 500; i++) {
 				GameObject g=GameObject.Find (i.ToString ());
 				Destroy (g);
 				number = 0;
