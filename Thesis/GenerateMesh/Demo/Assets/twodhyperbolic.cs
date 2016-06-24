@@ -34,6 +34,7 @@ public class twodhyperbolic : MonoBehaviour
 		public Button b_464;
 		public Button b_663;
 		public static bool modelling_mode = false;
+		public GameObject[] gameObjects;
 		void Start()
 		{
 	//		lineRenderer = gameObject.AddComponent<LineRenderer> ();
@@ -400,6 +401,7 @@ public class twodhyperbolic : MonoBehaviour
 			lineRenderer = tile.GetComponent<LineRenderer> ();
 			lineRenderer.material = new Material (Shader.Find ("Particles/Additive"));
 			lineRenderer.SetColors (Color.red, Color.red);
+			lineRenderer.useWorldSpace = false;
 			lineRenderer.SetWidth (0.02f, 0.02f);
 			
 			if (checkifrepresentedin2d (number) && modelling_mode)
@@ -802,11 +804,17 @@ public class twodhyperbolic : MonoBehaviour
 
 		public void DestroyPreviousGameObjects()
 		{
-			for (int i = 0; i < 500; i++) {
-				GameObject g=GameObject.Find (i.ToString ());
-				Destroy (g);
-				number = 0;
+//			for (int i = 0; i < 500; i++) {
+//				GameObject g=GameObject.Find (i.ToString ());
+//				Destroy (g);
+//				number = 0;
+//			}
+			number = 0;
+			gameObjects = GameObject.FindGameObjectsWithTag ("Player");
+			foreach (GameObject o in gameObjects) {
+				Destroy(o);
 			}
+
 		}
 	}
 }
