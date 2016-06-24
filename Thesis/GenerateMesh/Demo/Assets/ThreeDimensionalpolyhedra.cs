@@ -473,6 +473,7 @@ public class ThreeDimensionalpolyhedra : MonoBehaviour
 		{
 			DestroyTriplyGameObjects ();
 			RenderHexagon ();
+			number = 0;
 			Make663_block (new Vector3(0,0,0));
 			Make663_block (new Vector3(-1.7f,0,0.9f));
 			Make663_block (new Vector3(0,0,1.9f));
@@ -481,6 +482,7 @@ public class ThreeDimensionalpolyhedra : MonoBehaviour
 		}
 		public void model_Triply_setup()
 		{
+			number = 0;
 			RenderSquare (material);
 			Make464 (new Vector3(0,0,0));
 		}
