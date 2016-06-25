@@ -29,6 +29,7 @@ public class twodhyperbolic : MonoBehaviour
 		public Button gobutton;
 		public Text ptext;
 		public Text qtext;
+		public Text popup;
 		public GameObject sphere2d;
 		public GameObject sphere3d;
 		public Button b_464;
@@ -681,6 +682,7 @@ public class twodhyperbolic : MonoBehaviour
 			gobutton.gameObject.SetActive (false);
 			b_464.gameObject.SetActive (false);
 			b_663.gameObject.SetActive (false);
+			popup.gameObject.SetActive (false);
 
 		}
 
@@ -709,8 +711,14 @@ public class twodhyperbolic : MonoBehaviour
 			sides = int.Parse (pval.text);
 			polygons_at_vertice = int.Parse (qval.text);
 			print ("sides " + sides);
+			if (((sides - 2) * (polygons_at_vertice - 2) > 4)&&(polygons_at_vertice!=7&&polygons_at_vertice!=5)) {
+				popup.gameObject.SetActive(false);
 
-			GenerateTessellation ();
+				GenerateTessellation ();
+			} else {
+				popup.gameObject.SetActive(true);
+				DestroyPreviousGameObjects();
+			}
 
 		}
 
