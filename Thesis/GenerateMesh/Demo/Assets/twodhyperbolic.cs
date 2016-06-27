@@ -435,6 +435,7 @@ public class twodhyperbolic : MonoBehaviour
 				tile.AddComponent<MeshRenderer>().material = mat;
 				Vector2[] uvpoints = renderpoints (a);
 				msh.uv = uvpoints;
+				msh.RecalculateBounds ();
 			} else 
 			{
 				Color newcolor = new Color (Random.Range(0f,1f), Random.Range(0f,1f), Random.Range(0f,1f));
@@ -822,6 +823,7 @@ public class twodhyperbolic : MonoBehaviour
 			foreach (GameObject o in gameObjects) {
 				Destroy(o);
 			}
+			checkvalue = 0;
 
 		}
 	}

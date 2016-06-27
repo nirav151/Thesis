@@ -926,7 +926,7 @@ MonoBehaviour:
   sides: 4
   polygons_at_vertice: 6
   max: 1000
-  numberOfLayers: 1
+  numberOfLayers: 2
   mat: {fileID: 2100000, guid: d7e4413cb8917d746a2b8e37c98d8c67, type: 2}
   maxPolygons: 0
   layerPolygons: 0
