@@ -87,7 +87,7 @@ public class ThreeDimensionalpolyhedra : MonoBehaviour
 		}
 		public void RenderSquare(Material mat)
 		{
-			tile=new GameObject("100");
+			tile=new GameObject("1000");
 			Mesh msh = new Mesh();
 			tile.AddComponent<MeshFilter> ();
 				if (twodhyperbolic.modelling_mode) {
@@ -98,7 +98,7 @@ public class ThreeDimensionalpolyhedra : MonoBehaviour
 				}
 			tile.AddComponent<MeshCollider> ();
 			tile.tag="Player";
-			int name = 100 + number;
+			int name = 1000 + number;
 			tile.name = name.ToString ();
 			a = ConstructCenterPolygon (4, 6);
 			Vector3 center = CenterofPolygon (a);
@@ -211,12 +211,12 @@ public class ThreeDimensionalpolyhedra : MonoBehaviour
 			if (translation.x != 0 && translation.y != 0 && translation.z != 0) {
 				GameObject tile0 = Instantiate (tile, tile.transform.position + translation, Quaternion.Euler (new Vector3 (0f, 0f, 0f))) as GameObject;
 				number++;
-				name = 100 + number;
+				name = 1000 + number;
 				tile0.name=name.ToString();
 			}
 			tile1 =Instantiate (tile, tile.transform.position+new Vector3 (0f, 1.16f, 0f)+translation, tile.transform.rotation * Quaternion.Euler (new Vector3 (0f, 0f, 180f))) as GameObject;
 			number++;
-			name = 100 + number;
+			name = 1000 + number;
 			tile1.name=name.ToString();
 			if (!twodhyperbolic.modelling_mode) {
 				Color newcolor = new Color (Random.Range(0f,1f), Random.Range(0f,1f), Random.Range(0f,1f));
@@ -239,7 +239,7 @@ public class ThreeDimensionalpolyhedra : MonoBehaviour
 			rotategraphiconmesh (m1);
 			tile2 =Instantiate (tile, tile.transform.position+new Vector3 (0.581f, 0.581f, 0f)+translation, tile.transform.rotation * Quaternion.Euler (new Vector3 (0f, 0f, 90f))) as GameObject;
 			number++;
-			name = 100 + number;
+			name = 1000 + number;
 			tile2.name=name.ToString();
 			LineRenderer l2=new LineRenderer();
 			AddLineRenderer(tile2,l2,tile2.transform.position,tile2.transform.eulerAngles);
@@ -250,7 +250,7 @@ public class ThreeDimensionalpolyhedra : MonoBehaviour
 
 			tile3 =Instantiate (tile, tile.transform.position+new Vector3 (-0.581f, 0.581f, 0f)+translation, tile.transform.rotation *  Quaternion.Euler (new Vector3 (0f, 0f, 270f))) as GameObject;
 			number++;
-			name = 100 + number;
+			name = 1000 + number;
 			tile3.name=name.ToString();
 			if (!twodhyperbolic.modelling_mode) {
 				Color newcolor = new Color (Random.Range(0f,1f), Random.Range(0f,1f), Random.Range(0f,1f));
@@ -259,7 +259,7 @@ public class ThreeDimensionalpolyhedra : MonoBehaviour
 
 			tile4 =Instantiate (tile, tile.transform.position+new Vector3 (0f, 1.743f, 0.581f)+translation, tile.transform.rotation *  Quaternion.Euler (new Vector3 (90f, 0f, 0f))) as GameObject;
 			number++;
-			name = 100 + number;
+			name = 1000 + number;
 			tile4.name=name.ToString();
 			LineRenderer l4=new LineRenderer(); 
 			AddLineRenderer(tile4,l4,tile4.transform.position,tile4.transform.eulerAngles);
@@ -270,7 +270,7 @@ public class ThreeDimensionalpolyhedra : MonoBehaviour
 
 			tile5 =Instantiate (tile, tile.transform.position+new Vector3 (0f, 1.743f, 1.743f)+translation, tile.transform.rotation *  Quaternion.Euler (new Vector3 (270f, 0f, 0f))) as GameObject;
 			number++;
-			name = 100 + number;
+			name = 1000 + number;
 			tile5.name=name.ToString();
 			if (!twodhyperbolic.modelling_mode) {
 				Color newcolor = new Color (Random.Range(0f,1f), Random.Range(0f,1f), Random.Range(0f,1f));
@@ -279,7 +279,7 @@ public class ThreeDimensionalpolyhedra : MonoBehaviour
 		
 			tile6 =Instantiate (tile, tile.transform.position+new Vector3 (-0.581f, 1.743f, 1.16f)+translation, tile.transform.rotation * Quaternion.Euler (new Vector3 (0f, 0f, 270f))) as GameObject;
 			number++;
-			name = 100 + number;
+			name = 1000 + number;
 			tile6.name=name.ToString();
 			if (!twodhyperbolic.modelling_mode) {
 				Color newcolor = new Color (Random.Range(0f,1f), Random.Range(0f,1f), Random.Range(0f,1f));
@@ -288,7 +288,7 @@ public class ThreeDimensionalpolyhedra : MonoBehaviour
 
 			tile7 =Instantiate (tile, tile.transform.position+new Vector3 (0.581f, 1.743f, 1.16f)+translation, tile.transform.rotation * Quaternion.Euler (new Vector3 (0f, 0f, 90f))) as GameObject;
 			number++;
-			name = 100 + number;
+			name = 1000 + number;
 			tile7.name=name.ToString();
 			LineRenderer l7=new LineRenderer(); 
 			AddLineRenderer(tile7,l7,tile7.transform.position,tile7.transform.eulerAngles);
@@ -299,7 +299,7 @@ public class ThreeDimensionalpolyhedra : MonoBehaviour
 
 			tile8 =Instantiate (tile, tile.transform.position+new Vector3 (1.16f, 0f, 1.16f)+translation, tile.transform.rotation * Quaternion.Euler (new Vector3 (0f, 0f, 0f))) as GameObject;
 			number++;
-			name = 100 + number;
+			name = 1000 + number;
 			tile8.name=name.ToString();
 			Mesh m8 = tile8.GetComponent<MeshFilter> ().mesh;
 			rotategraphiconmesh (m8);
@@ -310,7 +310,7 @@ public class ThreeDimensionalpolyhedra : MonoBehaviour
 
 			tile9 =Instantiate (tile, tile.transform.position+new Vector3 (1.16f, 1.16f, 1.16f)+translation, tile.transform.rotation * Quaternion.Euler (new Vector3 (0f, 0f, 180f))) as GameObject;
 			number++;
-			name = 100 + number;
+			name = 1000 + number;
 			tile9.name=name.ToString();
 			Mesh m9 = tile9.GetComponent<MeshFilter> ().mesh;
 			rotategraphiconmesh (m9);
@@ -323,7 +323,7 @@ public class ThreeDimensionalpolyhedra : MonoBehaviour
 		
 			tile10 =Instantiate (tile, tile.transform.position+new Vector3 (1.16f, 0.581f, 0.581f)+translation, tile.transform.rotation * Quaternion.Euler (new Vector3 (90f, 0f, 0f))) as GameObject;
 			number++;
-			name = 100 + number;
+			name = 1000 + number;
 			tile10.name=name.ToString();
 			LineRenderer l10=new LineRenderer(); 
 			AddLineRenderer(tile10,l10,tile10.transform.position,tile10.transform.eulerAngles);
@@ -333,7 +333,7 @@ public class ThreeDimensionalpolyhedra : MonoBehaviour
 			}
 			tile11 =Instantiate (tile, tile.transform.position+new Vector3 (1.16f, 0.581f, 1.743f)+translation, tile.transform.rotation * Quaternion.Euler (new Vector3 (-90f, 0f, 0f))) as GameObject;
 			number++;
-			name = 100 + number;
+			name = 1000 + number;
 			tile11.name=name.ToString();
 
 			if (!twodhyperbolic.modelling_mode) {
@@ -419,27 +419,27 @@ public class ThreeDimensionalpolyhedra : MonoBehaviour
 			if (Physics.Raycast (ray, out hit)) {
 				if (hit.collider.name == "0") {
 					defaultLineWidth ();
-					GameObject.Find ("102").GetComponent<LineRenderer> ().SetWidth (0.05f, 0.05f);
+					GameObject.Find ("1002").GetComponent<LineRenderer> ().SetWidth (0.05f, 0.05f);
 				}
 				else if (hit.collider.name == "5") {
 					defaultLineWidth ();
-					GameObject.Find ("101").GetComponent<LineRenderer> ().SetWidth (0.05f, 0.05f);
+					GameObject.Find ("1001").GetComponent<LineRenderer> ().SetWidth (0.05f, 0.05f);
 				}
 				else if (hit.collider.name == "9") {
 					defaultLineWidth ();
-					GameObject.Find ("110").GetComponent<LineRenderer> ().SetWidth (0.05f, 0.05f);
+					GameObject.Find ("1010").GetComponent<LineRenderer> ().SetWidth (0.05f, 0.05f);
 				}
 				else if (hit.collider.name == "10") {
 					defaultLineWidth ();
-					GameObject.Find ("109").GetComponent<LineRenderer> ().SetWidth (0.05f, 0.05f);
+					GameObject.Find ("1009").GetComponent<LineRenderer> ().SetWidth (0.05f, 0.05f);
 				}
 				else if (hit.collider.name == "11") {
 					defaultLineWidth ();
-					GameObject.Find ("107").GetComponent<LineRenderer> ().SetWidth (0.05f, 0.05f);
+					GameObject.Find ("1007").GetComponent<LineRenderer> ().SetWidth (0.05f, 0.05f);
 				}
 				else if (hit.collider.name == "12") {
 					defaultLineWidth ();
-					GameObject.Find ("104").GetComponent<LineRenderer> ().SetWidth (0.05f, 0.05f);
+					GameObject.Find ("1004").GetComponent<LineRenderer> ().SetWidth (0.05f, 0.05f);
 				}
 			}
 		}
@@ -447,12 +447,12 @@ public class ThreeDimensionalpolyhedra : MonoBehaviour
 
 		public void defaultLineWidth()
 		{
-			GameObject.Find ("101").GetComponent<LineRenderer> ().SetWidth (0.02f, 0.02f);
-			GameObject.Find ("102").GetComponent<LineRenderer> ().SetWidth (0.02f, 0.02f);
-			GameObject.Find ("104").GetComponent<LineRenderer> ().SetWidth (0.02f, 0.02f);
-			GameObject.Find ("107").GetComponent<LineRenderer> ().SetWidth (0.02f, 0.02f);
-			GameObject.Find ("109").GetComponent<LineRenderer> ().SetWidth (0.02f, 0.02f);
-			GameObject.Find ("110").GetComponent<LineRenderer> ().SetWidth (0.02f, 0.02f);
+			GameObject.Find ("1001").GetComponent<LineRenderer> ().SetWidth (0.02f, 0.02f);
+			GameObject.Find ("1002").GetComponent<LineRenderer> ().SetWidth (0.02f, 0.02f);
+			GameObject.Find ("1004").GetComponent<LineRenderer> ().SetWidth (0.02f, 0.02f);
+			GameObject.Find ("1007").GetComponent<LineRenderer> ().SetWidth (0.02f, 0.02f);
+			GameObject.Find ("1009").GetComponent<LineRenderer> ().SetWidth (0.02f, 0.02f);
+			GameObject.Find ("1010").GetComponent<LineRenderer> ().SetWidth (0.02f, 0.02f);
 		}
 
 
@@ -490,7 +490,7 @@ public class ThreeDimensionalpolyhedra : MonoBehaviour
 		public void DestroyTriplyGameObjects()
 		{
 
-			for (int i = 100; i < 200; i++) {
+			for (int i = 1000; i < 2000; i++) {
 				GameObject g = GameObject.Find (i.ToString ());
 				Destroy (g);
 			}
@@ -499,11 +499,11 @@ public class ThreeDimensionalpolyhedra : MonoBehaviour
 
 		public void RenderHexagon()
 		{
-			tile=new GameObject("100");
+			tile=new GameObject("1000");
 			Mesh msh = new Mesh();
 			tile.AddComponent<MeshFilter> ();
 			tile.tag="Player";
-			int name = 100 + number;
+			int name = 1000 + number;
 			tile.transform.position +=new Vector3(1.21f,1.52f,9f);
 			tile.transform.rotation *= Quaternion.Euler (new Vector3 (0, 0, 180f));
 			tile.name = name.ToString ();
@@ -546,7 +546,7 @@ public class ThreeDimensionalpolyhedra : MonoBehaviour
 			int name;
 			GameObject tile0 = Instantiate (tile, tile.transform.position+new Vector3 (0f, 0f, 0f)+translate, Quaternion.Euler (new Vector3 (0f, 0f, 180f))) as GameObject;
 			number++;
-			name = 100 + number;
+			name = 1000 + number;
 			tile0.name=name.ToString();
 			LineRenderer l0=new LineRenderer();
 			//AddLineRenderer(tile,l0,tile.transform.position,tile.transform.eulerAngles);
@@ -556,7 +556,7 @@ public class ThreeDimensionalpolyhedra : MonoBehaviour
 			}
 			tile1 =Instantiate (tile, new Vector3 (0.65f, 0.76f, 9f)+translate, Quaternion.Euler (new Vector3 (0f, 0f, 290f))) as GameObject;
 			number++;
-			name = 100 + number;
+			name = 1000 + number;
 			tile1.name=name.ToString();
 			LineRenderer l1=new LineRenderer();
 			//AddLineRenderer(tile1,l1,tile1.transform.position,tile1.transform.eulerAngles);
@@ -567,7 +567,7 @@ public class ThreeDimensionalpolyhedra : MonoBehaviour
 
 			tile2 =Instantiate (tile, new Vector3 (1.495f, 0.758f, 9.46f)+translate, Quaternion.Euler (new Vector3 (0f, 120f, 290f))) as GameObject;
 			number++;
-			name = 100 + number;
+			name = 1000 + number;
 			tile2.name=name.ToString();
 			LineRenderer l2=new LineRenderer();
 			//AddLineRenderer(tile2,l2,tile2.transform.position,tile2.transform.eulerAngles);
@@ -578,7 +578,7 @@ public class ThreeDimensionalpolyhedra : MonoBehaviour
 
 			tile3 =Instantiate (tile, new Vector3 (1.465f, 0.769f, 8.514f)+translate, Quaternion.Euler (new Vector3 (358.7f, 240f, 290f))) as GameObject;
 			number++;
-			name = 100 + number;
+			name = 1000 + number;
 			tile3.name=name.ToString();
 			LineRenderer l3=new LineRenderer();
 			//AddLineRenderer(tile3,l3,tile3.transform.position,tile3.transform.eulerAngles);
