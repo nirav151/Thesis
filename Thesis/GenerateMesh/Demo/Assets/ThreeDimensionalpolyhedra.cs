@@ -16,52 +16,55 @@ public class ThreeDimensionalpolyhedra : MonoBehaviour
 		Ray ray;
 		RaycastHit hit;
 		int number=0;
-		// Use this for initialization
-		void Start () 
-		{
 
-
-		}
 	
-	// Update is called once per frame
-		void Update () {
-
+		// Update is called once per frame
+		void Update () 
+		{
+			
+			// Enable the tile selection for rendering line renderer only in the modelling_mode
+			// Also set up a few other things in this mode
 			if (twodhyperbolic.modelling_mode) {
 				Mesh m1 = tile.GetComponent<MeshFilter> ().mesh;
 				rotategraphiconmesh (m1);
 				MakeTileSelection ();
 			}
-					GameObject g = GameObject.Find ("Main Camera");
 
-					if (Input.GetKey (KeyCode.A)) {
-						g.transform.RotateAround (new Vector3(0.581f,1.162f,9.581f),-Vector3.up ,20f * Time.deltaTime);
+			// Adding rotation to the triply periodic gameobject using WASD keys
+			GameObject g = GameObject.Find ("Main Camera");
+			if (Input.GetKey (KeyCode.A))
+			{
+				g.transform.RotateAround (new Vector3(0.581f,1.162f,9.581f),-Vector3.up ,20f * Time.deltaTime);
 
-					}
-					if (Input.GetKey (KeyCode.D)) {
-						g.transform.RotateAround (new Vector3(0.581f,1.162f,9.581f),Vector3.up ,20f * Time.deltaTime);
-					}
-					if (Input.GetKey (KeyCode.W)) {
-						g.transform.RotateAround (new Vector3(0.581f,1.162f,9.581f),-Vector3.forward ,20f * Time.deltaTime);
-					}
-					if (Input.GetKey (KeyCode.S)) {
-						g.transform.RotateAround (new Vector3(0.581f,1.162f,9.581f),Vector3.forward ,20f * Time.deltaTime);
-					}
+			}
+			if (Input.GetKey (KeyCode.D)) 
+			{
+				g.transform.RotateAround (new Vector3(0.581f,1.162f,9.581f),Vector3.up ,20f * Time.deltaTime);
+			}
+			if (Input.GetKey (KeyCode.W)) 
+			{
+				g.transform.RotateAround (new Vector3(0.581f,1.162f,9.581f),-Vector3.forward ,20f * Time.deltaTime);
+			}
+			if (Input.GetKey (KeyCode.S))
+			{
+				g.transform.RotateAround (new Vector3(0.581f,1.162f,9.581f),Vector3.forward ,20f * Time.deltaTime);
+			}
 			
 
 		}
 
+		// This funciton is used to construct the basic face of the triply periodic polygon using 
+		// {p,q} where p is represented by n and q is represented by k.
 		public Polygon ConstructCenterPolygon(int n, int k){
-
 			Polygon p = new Polygon();
 
-
+			// The angles made by the fundamental polygon with the circumscribing circle.
 			float angleA = Mathf.PI / n;
 			float angleB = Mathf.PI / k;
 			float angleC = (float)(Mathf.PI / 2.0);
 
 			// For a regular tiling, we need to compute the distance s
 			// from A to B
-
 			float sinA = Mathf.Sin(angleA);
 			float sinB = Mathf.Sin(angleB);
 			float s =
@@ -85,25 +88,42 @@ public class ThreeDimensionalpolyhedra : MonoBehaviour
 			return p;
 
 		}
+
+		// This block creates the gameobject based on the points obtained by constructcenterpolygon function
+		// and adds a material to it.
 		public void RenderSquare(Material mat)
 		{
+			
 			tile=new GameObject("1000");
 			Mesh msh = new Mesh();
 			tile.AddComponent<MeshFilter> ();
-				if (twodhyperbolic.modelling_mode) {
-					tile.AddComponent<MeshRenderer> ().material = mat;
-				} else {
-					Color newcolor = new Color (Random.Range(0f,1f), Random.Range(0f,1f), Random.Range(0f,1f));
-					tile.AddComponent<MeshRenderer> ().material.color = newcolor;
-				}
+				
+
+			// if else block to render random color if not in modelling mode or render angels and demons pattern
+			// if in the modelling_mode.
+			if (twodhyperbolic.modelling_mode) 
+			{
+				tile.AddComponent<MeshRenderer> ().material = mat;
+			} 
+			else 
+			{
+				Color newcolor = new Color (Random.Range(0f,1f), Random.Range(0f,1f), Random.Range(0f,1f));
+				tile.AddComponent<MeshRenderer> ().material.color = newcolor;
+			}
+
 			tile.AddComponent<MeshCollider> ();
 			tile.tag="Player";
+
+			// generate names for each polygon of the triply periodic polygon starting from 1000.
 			int name = 1000 + number;
 			tile.name = name.ToString ();
+
 			a = ConstructCenterPolygon (4, 6);
 			Vector3 center = CenterofPolygon (a);
 			print ("center " + center);
 			Polygon b = new Polygon ();
+
+			// setting up the vertices
 			for (int i=0; i<a.vertices.Count-1; i++) 
 			{
 				print ("i " + i);
@@ -120,6 +140,7 @@ public class ThreeDimensionalpolyhedra : MonoBehaviour
 			msh.vertices = vertices;
 
 
+			// setting up the traingles
 			int[] triangles = new int[b.vertices.Count];
 			for (int i = 0; i < vertices.Length; i++) {
 				triangles [i] = i;
@@ -127,6 +148,8 @@ public class ThreeDimensionalpolyhedra : MonoBehaviour
 			}
 			msh.triangles = triangles;
 			tile.GetComponent<MeshCollider> ().sharedMesh = msh;
+
+			// setting up the uvs.
 			Vector2[] uv = new Vector2[5];
 			uv [0] = new Vector2 (0, 1);
 			uv [1] = new Vector2 (1, 1);
@@ -147,9 +170,12 @@ public class ThreeDimensionalpolyhedra : MonoBehaviour
 			for (int i = 0; i < finaluvs.Length; i++) {
 				finaluvs [i] = c.vertices [i];
 			}
-				if (twodhyperbolic.modelling_mode) {
+			if (twodhyperbolic.modelling_mode) 
+			{
 					msh.uv = finaluvs;
-				}
+			}
+
+			// setting up the normals
 			Vector3[] normals=new Vector3[vertices.Length];
 			for (int i = 0; i < normals.Length; i++) {
 				normals [i] = Vector3.down;
@@ -157,10 +183,15 @@ public class ThreeDimensionalpolyhedra : MonoBehaviour
 			msh.normals = normals;
 			tile.GetComponent<MeshFilter>().mesh = msh;
 
+			// move the triply periodic polyhedron away from the hyperbolic tessellation.
 			tile.transform.position = new Vector3 (0f,0f,9f);
 
 		}
 
+
+		// This function finds the center of the polygon..
+		// The method is to divide the sum of all vertices by the total
+		// number of sides.
 		public Vector3 CenterofPolygon(Polygon findcenterofpolygon)
 		{
 			Vector3 center = new Vector3 (0f,0f,0f);
@@ -171,14 +202,23 @@ public class ThreeDimensionalpolyhedra : MonoBehaviour
 			return center/sides;
 		}
 
+
+		// A class with a list of vector3's to store vertices..
 		public class Polygon {
 			public List<Vector3>vertices = new List<Vector3>();
 		}
 
+
+		// A class with a list of vector2's to store uvs...
 		public class Polygon2D {
 			public List<Vector2>vertices = new List<Vector2>();
 		}
 
+
+		// This determines the order in which uvs are rendered...
+		// This has to be modified if some other type of triply periodic polyhedron 
+		// is selected....This can be automatically setup by some GUI mechansim
+		// which can be added....
 		public Vector2[] GraphicsOrder()
 		{
 			Vector2[] final= new Vector2[5];
@@ -205,6 +245,8 @@ public class ThreeDimensionalpolyhedra : MonoBehaviour
 			return finaluvs;
 		}
 
+		// This function pick up the basic polygon created and replicates
+		// it and creates a block of the {4,6|4} triply periodic polyhedron..
 		public void Make464(Vector3 translation)
 		{
 			int name;
@@ -222,16 +264,7 @@ public class ThreeDimensionalpolyhedra : MonoBehaviour
 				Color newcolor = new Color (Random.Range(0f,1f), Random.Range(0f,1f), Random.Range(0f,1f));
 				tile1.GetComponent<MeshRenderer> ().material.color = newcolor;
 			}
-//		tile1.AddComponent<LineRenderer> ();
-//		linerenderer = tile1.GetComponent<LineRenderer> ();
-//		linerenderer.material = new Material (Shader.Find ("Particles/Additive"));
-//		linerenderer.SetColors (Color.red, Color.red);
-//		linerenderer.SetWidth (0.02f, 0.02f);
-//		Vector3[] o = pointsrotatedandtranslated (new Vector3 (0f, 1.16f, 0f),new Vector3 (0f, 0f, 180f));
-//		linerenderer.SetVertexCount (o.Length);
-//		for (int i = 0; i < o.Length; i++) {
-//			linerenderer.SetPosition (i, o[i]);
-//		}
+
 			LineRenderer l1=new LineRenderer();
 			AddLineRenderer(tile1,l1,tile1.transform.position,tile1.transform.eulerAngles);
 
@@ -331,17 +364,20 @@ public class ThreeDimensionalpolyhedra : MonoBehaviour
 				Color newcolor = new Color (Random.Range(0f,1f), Random.Range(0f,1f), Random.Range(0f,1f));
 				tile10.GetComponent<MeshRenderer> ().material.color = newcolor;
 			}
+
+
 			tile11 =Instantiate (tile, tile.transform.position+new Vector3 (1.16f, 0.581f, 1.743f)+translation, tile.transform.rotation * Quaternion.Euler (new Vector3 (-90f, 0f, 0f))) as GameObject;
 			number++;
 			name = 1000 + number;
 			tile11.name=name.ToString();
-
 			if (!twodhyperbolic.modelling_mode) {
 				Color newcolor = new Color (Random.Range(0f,1f), Random.Range(0f,1f), Random.Range(0f,1f));
 				tile11.GetComponent<MeshRenderer> ().material.color = newcolor;
 			}
 		}
 
+
+		// Allows to rotate the angels and deomns pattern on a polygon...
 		public void rotategraphiconmesh(Mesh mesh1)
 		{
 			Vector2[] uvs = new Vector2[5];
@@ -349,12 +385,14 @@ public class ThreeDimensionalpolyhedra : MonoBehaviour
 			mesh1.uv=uvs;
 		}
 
+
 		public void TransformationPoint(Vector3 pointin2d)
 		{
 			Vector3 hyperboloidpoint = Poincaretohyperboloid (pointin2d);
 
 		}
 
+		// Function to convert poincare point to hyperboloid model point.
 		public Vector3 Poincaretohyperboloid(Vector3 poincarepoint)
 		{
 			float x = poincarepoint.x;
@@ -366,6 +404,7 @@ public class ThreeDimensionalpolyhedra : MonoBehaviour
 			return new Vector3 (hyperboloid_x,hyperboloid_y,hyperboloid_z);
 		}
 
+		// Converts a vector3 to matrix...
 		public float[][] ConvertVector3tomatrix(Vector3 point)
 		{
 			float[][] matrixpoint = {
@@ -377,6 +416,8 @@ public class ThreeDimensionalpolyhedra : MonoBehaviour
 			return matrixpoint;
 		}
 
+
+		// This function converts a point from poincare model to Klein model.
 		public Vector3 ptok(Vector3 poincarepoint)
 		{
 			Vector3 kleinpoint = new Vector3 (2 * poincarepoint.x / (1 + poincarepoint.x * poincarepoint.x + poincarepoint.z * poincarepoint.z), 0,
@@ -385,6 +426,8 @@ public class ThreeDimensionalpolyhedra : MonoBehaviour
 			return kleinpoint;
 		}
 
+		// This function takes in a translation and rotation vector and applies it
+		// to a set of vertices...
 		public Vector3[] pointsrotatedandtranslated(Vector3 translation,Vector3 rotation)
 		{
 			Vector3[] output = new Vector3[a.vertices.Count];
@@ -398,6 +441,9 @@ public class ThreeDimensionalpolyhedra : MonoBehaviour
 			return output;
 		}
 
+
+		// This function allows to add a linerenderer to a gameobject that can be specified as an input
+		// argument.
 		public void AddLineRenderer(GameObject gameobject, LineRenderer linerenderer, Vector3 translation,Vector3 rotation)
 		{
 			gameobject.AddComponent<LineRenderer> ();
@@ -412,6 +458,11 @@ public class ThreeDimensionalpolyhedra : MonoBehaviour
 			}
 		}
 
+		// This function allows the linerenderer mechanism as a part
+		// of the modelling mode.
+		// Based on the position of the mouse in the triply periodic polyhedron
+		// the line renderer's width changes...
+		// The corresponding tile in the hyperbolic tessellation is also highlighted..
 		public void MakeTileSelection()
 		{
 			//GameObject g = GameObject.Find ("Sphere-3D");
@@ -445,6 +496,7 @@ public class ThreeDimensionalpolyhedra : MonoBehaviour
 		}
 
 
+		// Changes the linerenderer's width to default...
 		public void defaultLineWidth()
 		{
 			GameObject.Find ("1001").GetComponent<LineRenderer> ().SetWidth (0.02f, 0.02f);
@@ -456,6 +508,8 @@ public class ThreeDimensionalpolyhedra : MonoBehaviour
 		}
 
 
+		// When the {4,6|4} button is clicked in the triply_periodic mode
+		// this funciton kicks in.
 		public void b_464_click()
 		{
 			DestroyTriplyGameObjects ();
@@ -466,9 +520,9 @@ public class ThreeDimensionalpolyhedra : MonoBehaviour
 			Make464 (new Vector3 (2.32f, 0, 2.32f));
 			Make464 (new Vector3 (2.32f, 0, 0));
 		}
-		public void b_644_click()
-		{
-		}
+
+		// When the {6,6|3} button is clicked in the triply_periodic mode
+		// this funciton kicks in.
 		public void b_663_click()
 		{
 			DestroyTriplyGameObjects ();
@@ -480,6 +534,8 @@ public class ThreeDimensionalpolyhedra : MonoBehaviour
 			Make663_block (new Vector3(-0.54f,1.5f,0.93f));
 			tile.SetActive (false);
 		}
+
+		// Sets up the initial setup for the triply_periodic_mode...
 		public void model_Triply_setup()
 		{
 			number = 0;
@@ -487,6 +543,7 @@ public class ThreeDimensionalpolyhedra : MonoBehaviour
 			Make464 (new Vector3(0,0,0));
 		}
 
+		// Destroys pervious gameobjects..
 		public void DestroyTriplyGameObjects()
 		{
 
@@ -497,6 +554,11 @@ public class ThreeDimensionalpolyhedra : MonoBehaviour
 
 		}
 
+
+		// This funciton creates the hexagon for the {6,6|3} polyhedron..
+		// It uses the ConstructCenterPolygon using values 6,6 and
+		// automatically comes up with the vertices...
+		// This block also sets up the uvs and the normals..
 		public void RenderHexagon()
 		{
 			tile=new GameObject("1000");
@@ -511,6 +573,8 @@ public class ThreeDimensionalpolyhedra : MonoBehaviour
 			Vector3 center = CenterofPolygon (a);
 			print ("center " + center);
 			Polygon b = new Polygon ();
+
+			// setup vertices...
 			for (int i=0; i<a.vertices.Count-1; i++) 
 			{
 				b.vertices.Add(ptok(a.vertices[i]));
@@ -527,6 +591,7 @@ public class ThreeDimensionalpolyhedra : MonoBehaviour
 			msh.vertices = vertices;
 
 
+			//setup triangles...
 			int[] triangles = new int[b.vertices.Count];
 			for (int i = 0; i < vertices.Length; i++) {
 				triangles [i] = i;
@@ -535,12 +600,17 @@ public class ThreeDimensionalpolyhedra : MonoBehaviour
 			tile.GetComponent<MeshFilter> ().mesh = msh;
 			Color newcolor = new Color (Random.Range(0f,1f), Random.Range(0f,1f), Random.Range(0f,1f));
 			tile.AddComponent<MeshRenderer> ().material.color = newcolor;
+
+
+			// setup normals...
 			Vector3[] normals=new Vector3[vertices.Length];
 			for (int i = 0; i < normals.Length; i++) {
 				normals [i] = Vector3.up;
 			}
 			msh.normals = normals;
 		}
+
+		// Replicate the basic hexagon to create a {6,6|3} block....
 		public void Make663_block(Vector3 translate)
 		{
 			int name;

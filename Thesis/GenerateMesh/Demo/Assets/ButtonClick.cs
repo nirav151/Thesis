@@ -13,6 +13,7 @@ public class ButtonClick : MonoBehaviour {
 	
 	}
 
+	// Called when the hyperbolic tessellation button is clicked...
 	public void HyperbolicTessellationButtonClick()
 	{
 		Camera [] c = Camera.allCameras;
