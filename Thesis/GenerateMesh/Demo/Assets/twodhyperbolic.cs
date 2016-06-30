@@ -1,4 +1,12 @@
-﻿using UnityEngine;
+﻿/*
+
+twodhyperbolic.cs class creates the hyperbolic tessellation. This takes in input p and q , where p is the number of sides of polygon 
+and q is the number of polygons meeting at each vertex in the tessellation. Based on this the central polygon is created and replicated
+around its edges. 
+
+ */
+
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
@@ -6,16 +14,15 @@ using UnityEngine.UI;
 namespace HyperbolicGeometry{
 public class twodhyperbolic : MonoBehaviour 
 	{
-		public Material faceMaterial;
-		public Material linematerial;
-		Polygon[] verti;
-		public Polygon[] FinalPoints,poincarePoints,finalPoints;
+
+		Polygon[] polygon; // List of polygons
+		public Polygon[] FinalPoints,poincarePoints,finalLinePoints; // list of finalpoints and poincare poi
 		int[] rules;
 		public int sides=4;
 		public int polygons_at_vertice=6;
 		public int max =1000, numberOfLayers=1;
-		public Material mat;
-		public int maxPolygons, layerPolygons;
+		public Material mat; // Motif of angel and demon
+		public int maxPolygons, layerPolygons; // max number of polygons and polygon count in each layer
 		public bool done=false;
 		int checkvalue=0;
 		int polygonsinlayer=0;
@@ -24,6 +31,7 @@ public class twodhyperbolic : MonoBehaviour
 		int[] polygonsinalllayers;
 		LineRenderer lineRenderer;
 		int[,] tilemap;
+		//Display Menu
 		public InputField pval;
 		public InputField qval;
 		public Button gobutton;
@@ -35,85 +43,20 @@ public class twodhyperbolic : MonoBehaviour
 		public Button b_464;
 		public Button b_663;
 		public static bool modelling_mode = false;
-		public GameObject[] gameObjects;
+		public GameObject[] gameObjects; // List of tiles as gameobjects
+
 		void Start()
 		{
-	//		lineRenderer = gameObject.AddComponent<LineRenderer> ();
-	//		lineRenderer.material = new Material (Shader.Find ("Particles/Additive"));
-	//		lineRenderer.SetColors (Color.red, Color.red);
-	//		lineRenderer.SetWidth (0.01f, 0.01f);
+			//mapping between triply periodic polyhedron and its hyperbolic covering tessellation
 			tilemap = new int[6, 2] { { 0, 102 }, { 5, 101 }, { 12, 104 }, { 11, 107 },{10,109} ,{9,110}};
 
-			/*
-			do {
-				polygonsinalllayers = new int[numberOfLayers + 1];
-				polygonCount (numberOfLayers, sides, polygons_at_vertice, max);
-				if (maxPolygons > max)
-					numberOfLayers--;
-
-			} while(maxPolygons>max);
-			verti = new Polygon[maxPolygons];
-			rules = new int[maxPolygons];
-
-			verti [0] = ConstructCenterPolygon (sides, polygons_at_vertice);
-			Polygon Kleinpoints = ptok (verti [0]);
-
-			Polygon Kleinpoints_subdivided = subdivide (Kleinpoints, 15);
-			Polygon Poincarepoints = ktop (Kleinpoints_subdivided);
-
-
-
-			rules [0] = 0;
-			int j = 1;
-
-
-
-
-
-			for (int i =0; i<layerPolygons; i++) {
-				j=RuleApply(i,j,sides, polygons_at_vertice);
-
-			}
-
-			FinalPoints = new Polygon[verti.Length];
-			for (int p=0; p<verti.Length; p++) {
-				FinalPoints[p]=DrawHyperbolicCenterPolygon (verti [p]);
-				FinalPoints [p].vertices.Add (FinalPoints[p].vertices[0]);
-
-			}
-				
-			*/
+			//Function to create hyperbolic tessellation
 			Initialsetup();
 		}
 
-
-
-		void Update()
-		{
-				
-//			RenderLine ();
-//			int lengthofLineRenderer = finalPoints [0].vertices.Count*6;
-//			lineRenderer.SetVertexCount (lengthofLineRenderer);
-//			int k = 0;
-//			while (k < lengthofLineRenderer) 
-//			{
-//				for (int i = 0; i < finalPoints.Length; i++)
-//				{
-//					for(int j=0;j<FinalPoints[i].vertices.Count;j++)
-//					{
-//						Vector3 pos = new Vector3 (finalPoints [i].vertices [j].x, finalPoints [i].vertices [j].y, 0);
-//						lineRenderer.SetPosition (k, pos);
-//						k++;
-//					}
-//						
-//				}
-//			}
-
-
-		}
 		
 
-
+		//Counting the number of polygons being created by specified number of layers
 		private void polygonCount(int layernumber,int side, int vertex, int maxValue)
 		{
 			maxPolygons = 1;  // total polygons so far, just the center one
@@ -153,7 +96,7 @@ public class twodhyperbolic : MonoBehaviour
 		}
 
 
-
+		//Creating the center polygon.
 		public Polygon ConstructCenterPolygon(int n, int k)
 		{
 
@@ -190,6 +133,7 @@ public class twodhyperbolic : MonoBehaviour
 			return p;
 
 		}
+		// Converting a Poincare point to Klein point
 		public Polygon ptok (Polygon p)
 		{
 			Polygon q = new Polygon ();
@@ -207,6 +151,7 @@ public class twodhyperbolic : MonoBehaviour
 			return q;
 		}
 
+		//Converting a Klein point to poincare point
 		public Polygon ktop(Polygon q)
 		{
 			Polygon r = new Polygon ();
@@ -225,7 +170,7 @@ public class twodhyperbolic : MonoBehaviour
 			}
 			return r;
 		}
-
+		//Function to subdivide the Klein points
 		public Polygon subdivide(Polygon q,int numberofpoints)
 		{
 			Polygon r = new Polygon ();
@@ -250,7 +195,7 @@ public class twodhyperbolic : MonoBehaviour
 			}
 			return r;
 		}
-
+		//Function to subdivide uv points of mesh
 		public Polygon2D subdivide2D(Polygon2D q,int numberofpoints)
 		{
 			Polygon2D r = new Polygon2D ();
@@ -276,7 +221,7 @@ public class twodhyperbolic : MonoBehaviour
 			}
 			return r;
 		}
-
+		//Function checks how many polygons should be adjacent to given polygon
 		public int RuleApply(int i, int j, int n, int k ){
 
 			int r = rules [i];
@@ -289,7 +234,7 @@ public class twodhyperbolic : MonoBehaviour
 
 			for (int s=start; s<start+quantity; ++s) {
 
-				verti[j]=createNextPolygon (verti[i],s%n,n,k); 
+				polygon[j]=createNextPolygon (polygon[i],s%n,n,k); 
 				rules[j]=(k==3&&s==start&&r!=0)?4:3;
 				j++;
 				int m;
@@ -301,7 +246,7 @@ public class twodhyperbolic : MonoBehaviour
 					m=0;
 				for(;m<k-3;++m)
 				{
-					verti[j]=createNextPolygon(verti[j-1],1,n,k);
+					polygon[j]=createNextPolygon(polygon[j-1],1,n,k);
 					rules[j]=(n==3&&m==k-4)?1:2;
 					j++;
 
@@ -312,7 +257,7 @@ public class twodhyperbolic : MonoBehaviour
 			return j;
 		}
 
-
+		//Function to create rest of polygons
 		private Polygon createNextPolygon(Polygon P, int s , int n , int k){
 
 			Vector3 start = P.vertices[s];
@@ -332,7 +277,7 @@ public class twodhyperbolic : MonoBehaviour
 			return Q;
 
 		}
-
+		//Function to reflect the polygon around its edges
 		public Vector3 Reflect(Vector3 A, Vector3 B, Vector3 R)
 		{
 			float den = A.x * B.y - B.x * A.y;
@@ -362,17 +307,18 @@ public class twodhyperbolic : MonoBehaviour
 
 
 		}
+		//Data structure store a polygon's list of vertices
 		public class Polygon 
 		{
 			public List<Vector3>vertices = new List<Vector3>();
 		}
-
+		// Data structure to store a 2d polygon's vertices
 		public class Polygon2D 
 		{
 			public List<Vector2>vertices = new List<Vector2>();
 		}
 
-
+		//Rendering the tessellation.
 		public Polygon DrawHyperbolicCenterPolygon(Polygon a)
 		{
 			Vector3 center = CenterofPolygon (a);
@@ -453,7 +399,7 @@ public class twodhyperbolic : MonoBehaviour
 			//msh.RecalculateBounds ();
 			return Poincarepoints;
 		}
-
+		// Function to calculate center of each polygon
 		public Vector3 CenterofPolygon(Polygon findcenterofpolygon)
 		{
 			Vector3 center = new Vector3 (0f,0f,0f);
@@ -531,49 +477,7 @@ public class twodhyperbolic : MonoBehaviour
 			
 
 	
-	// new version
-	/*
-	public Vector2[] renderpoints(Polygon polygon)
-	{
-		Polygon2D b = new Polygon2D ();
-		b.vertices.Add (new Vector2 (0, 0));
-		b.vertices.Add (new Vector2 (0, 1));
-		b.vertices.Add (new Vector2 (1, 1));
-		b.vertices.Add (new Vector2 (1, 0));
-		b.vertices.Add (new Vector2 (0, 0));
-
-		int[] res = typeofpolygon (verti, polygonsinalllayers);
-		if (res [checkvalue] ==1)
-		{
-			print ("rotate + checkvalue " + checkvalue);
-			print ("res[checkvalue] " + res [checkvalue]);
-			Polygon2D b1 = new Polygon2D ();
-			b1 = rotate90points (b);
-			b = b1;
-		}
-
-		checkvalue++;
-		Polygon2D c = new Polygon2D ();
-		c = subdivide2D (b, 10);
-		Polygon2D d = new Polygon2D ();
-		for(int i=0;i<c.vertices.Count-1;i++)
-		{
-			d.vertices.Add (c.vertices [i]);
-			d.vertices.Add (c.vertices [i+1]);
-			d.vertices.Add (new Vector2 (0.5f, 0.5f));
-
-		}
-		Vector2[] final = new Vector2[d.vertices.Count];
-		for (int i = 0; i < final.Length; i++) {
-			final [i] = d.vertices [i];
-		}
-
-		return final;
-
-	}
-
-	*/
-
+	// rotating the vertices 
 		public Polygon2D rotate90points(Polygon2D polygon)
 		{
 			Polygon2D rotated = new Polygon2D ();
@@ -620,7 +524,7 @@ public class twodhyperbolic : MonoBehaviour
 			}
 			return result;
 		}
-
+		// checking whether polygons shares a edge or vertice
 		public bool check(Polygon a, Polygon b)
 		{
 			int matching_points = 0;
@@ -637,21 +541,21 @@ public class twodhyperbolic : MonoBehaviour
 			else
 				return false;
 		}
-
+		//Line renderer for hyperbolic tessellation
 		public void RenderLine()
 		{
 				poincarePoints = FinalPoints;
-				finalPoints = new Polygon[6];
+				finalLinePoints = new Polygon[6];
 				int[] arrayOfPolygons = new int[6]{0,5,9,10,11,12};
 				int l = 0;
 				int length = poincarePoints[0].vertices.Count;
 
 				foreach (int k in arrayOfPolygons)
 				{
-					finalPoints[l]=new Polygon();
+					finalLinePoints[l]=new Polygon();
 					for(int i=0;i<length;i++)
 					{
-						finalPoints[l].vertices.Add(poincarePoints[k].vertices[i]);
+						finalLinePoints[l].vertices.Add(poincarePoints[k].vertices[i]);
 					}
 					l++;
 				}
@@ -670,7 +574,7 @@ public class twodhyperbolic : MonoBehaviour
 				return false;
 		}
 
-
+		// Function which runs the Initial setup, which means when application is started.
 		public void Initialsetup()
 		{
 			Camera[] c = Camera.allCameras;
@@ -686,7 +590,7 @@ public class twodhyperbolic : MonoBehaviour
 			popup.gameObject.SetActive (false);
 
 		}
-
+		//Functions to do when Hyperbolictessellation button is selected
 		public void HyperbolicTessellationButtonClick()
 		{
 			modelling_mode = false;
@@ -706,7 +610,7 @@ public class twodhyperbolic : MonoBehaviour
 			b_464.gameObject.SetActive (false);
 			b_663.gameObject.SetActive (false);
 		}
-
+		// Function to simulate Go button in the display
 		public void GoButtonClick()
 		{
 			sides = int.Parse (pval.text);
@@ -723,7 +627,7 @@ public class twodhyperbolic : MonoBehaviour
 
 		}
 
-
+		// Function which projects Poincare to Klein and Klein to Poincare
 		public void GenerateTessellation()
 		{
 			DestroyPreviousGameObjects ();	
@@ -734,11 +638,11 @@ public class twodhyperbolic : MonoBehaviour
 					numberOfLayers--;
 
 			} while(maxPolygons>max);
-			verti = new Polygon[maxPolygons];
+			polygon = new Polygon[maxPolygons];
 			rules = new int[maxPolygons];
 
-			verti [0] = ConstructCenterPolygon (sides, polygons_at_vertice);
-			Polygon Kleinpoints = ptok (verti [0]);
+			polygon [0] = ConstructCenterPolygon (sides, polygons_at_vertice);
+			Polygon Kleinpoints = ptok (polygon [0]);
 
 			Polygon Kleinpoints_subdivided = subdivide (Kleinpoints, 15);
 			Polygon Poincarepoints = ktop (Kleinpoints_subdivided);
@@ -757,13 +661,14 @@ public class twodhyperbolic : MonoBehaviour
 
 			}
 
-			FinalPoints = new Polygon[verti.Length];
-			for (int p=0; p<verti.Length; p++) {
-				FinalPoints[p]=DrawHyperbolicCenterPolygon (verti [p]);
+			FinalPoints = new Polygon[polygon.Length];
+			for (int p=0; p<polygon.Length; p++) {
+				FinalPoints[p]=DrawHyperbolicCenterPolygon (polygon [p]);
 				FinalPoints [p].vertices.Add (FinalPoints[p].vertices[0]);
 
 			}
 		}
+		//Functions to do when Modelling Button is selected
 		public void ModellingButtonClick()
 		{
 			modelling_mode = true;
@@ -788,6 +693,7 @@ public class twodhyperbolic : MonoBehaviour
 			b_663.gameObject.SetActive (false);
 		}
 
+		// Functions to do when triply periodic polyhedron is selected
 		public void TriplyButtonClick()
 		{
 			modelling_mode = false;
@@ -810,7 +716,7 @@ public class twodhyperbolic : MonoBehaviour
 
 		}
 
-
+		// Destroying game objects before creating new ones
 		public void DestroyPreviousGameObjects()
 		{
 //			for (int i = 0; i < 500; i++) {
