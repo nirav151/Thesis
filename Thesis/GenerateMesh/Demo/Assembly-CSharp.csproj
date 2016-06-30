@@ -45,15 +45,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\ButtonClick.cs" />
-    <Compile Include="Assets\LineRender.cs" />
     <Compile Include="Assets\Modellingpointmovement.cs" />
     <Compile Include="Assets\Shaders\TileRelation.cs" />
     <Compile Include="Assets\ThreeDimensionalpolyhedra.cs" />
-    <Compile Include="Assets\TileRelation.cs" />
-    <Compile Include="Assets\demo.cs" />
-    <Compile Include="Assets\generatecube.cs" />
-    <Compile Include="Assets\generatedoublesidecube.cs" />
-    <Compile Include="Assets\generatepolyhedron.cs" />
     <Compile Include="Assets\twodhyperbolic.cs" />
     <None Include="Assets\Shaders\Normal-Diffuse.shader" />
     <Reference Include="UnityEngine.Networking">

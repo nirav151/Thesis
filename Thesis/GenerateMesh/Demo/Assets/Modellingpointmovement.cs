@@ -11,8 +11,8 @@ public class Modellingpointmovement : MonoBehaviour {
 	public float cosp,sinp,coshq,sinhq,cosh2q,sinh2q;
 	public int tile_clicked=0;
 	public float[,] transformationmatrix = new float[3, 3];
-	// Use this for initialization
 
+	// Use this for initialization
 	void Start () {
 		cosp=Mathf.Cos(Mathf.PI/p);
 		sinp=Mathf.Sin(Mathf.PI/p);
@@ -28,74 +28,76 @@ public class Modellingpointmovement : MonoBehaviour {
 
 	
 	// Update is called once per frame
+	// This block checks the position of the mouse pointer...
+	// And if it in within bounds finds the equivalent point
+	// in the triply periodic polyhedron and places the
+	// yellow sphere there....
 	void Update()
 	{
 
-
-//		if (Input.GetMouseButtonDown (0)) {
-			ray = Camera.main.ScreenPointToRay (Input.mousePosition);
-			if (Physics.Raycast (ray, out hit)) 
+		ray = Camera.main.ScreenPointToRay (Input.mousePosition);
+		if (Physics.Raycast (ray, out hit)) 
+		{
+			LineRenderer lineRend;
+			if(hit.collider.name=="0")
 			{
-				LineRenderer lineRend;
-				if(hit.collider.name=="0")
-				{
-					transform.position=hit.point;
-					Vector3 position3d = get3dequivalentpointtile0 (transform.position);
-					Sphere3d.transform.position = position3d;
-					defaultLineWidth ();
-					GameObject.Find ("0").GetComponent<LineRenderer> ().SetWidth(0.05f,0.05f);
-
-
-				}
-				else if (hit.collider.name == "9") 
-				{
-					tile_clicked = 9;
-					transform.position = hit.point;
-					Vector3 position3d = get3dequivalentpoint (transform.position,tile_clicked);
-					Sphere3d.transform.position = position3d;
-					defaultLineWidth ();
-					GameObject.Find ("9").GetComponent<LineRenderer> ().SetWidth(0.05f,0.05f);
-				}
-				else if (hit.collider.name == "5") 
-				{
-					tile_clicked = 5;
-					transform.position = hit.point;
-					Vector3 position3d = get3dequivalentpoint (transform.position,tile_clicked);
-					Sphere3d.transform.position = position3d;
-					defaultLineWidth ();
-					GameObject.Find ("5").GetComponent<LineRenderer> ().SetWidth(0.05f,0.05f);
-				}
-				else if (hit.collider.name == "12") 
-				{
-					tile_clicked = 12;
-					transform.position = hit.point;
-					Vector3 position3d = get3dequivalentpoint (transform.position,tile_clicked);
-					Sphere3d.transform.position = position3d;
-					defaultLineWidth ();
-					GameObject.Find ("12").GetComponent<LineRenderer> ().SetWidth(0.05f,0.05f);
-				}
-				else if (hit.collider.name == "11") 
-				{
-					tile_clicked = 11;
-					transform.position = hit.point;
-					Vector3 position3d = get3dequivalentpoint (transform.position,tile_clicked);
-					Sphere3d.transform.position = position3d;
-					defaultLineWidth ();
-					GameObject.Find ("11").GetComponent<LineRenderer> ().SetWidth(0.05f,0.05f);
-				}
-				else if (hit.collider.name == "10") 
-				{
-					tile_clicked = 10;
-					transform.position = hit.point;
-					Vector3 position3d = get3dequivalentpoint (transform.position,tile_clicked);
-					Sphere3d.transform.position = position3d;
-					defaultLineWidth ();
-					GameObject.Find ("10").GetComponent<LineRenderer> ().SetWidth(0.05f,0.05f);
-				}
+				transform.position=hit.point;
+				Vector3 position3d = get3dequivalentpointtile0 (transform.position);
+				Sphere3d.transform.position = position3d;
+				defaultLineWidth ();
+				GameObject.Find ("0").GetComponent<LineRenderer> ().SetWidth(0.05f,0.05f);
 			}
-		//}
+				
+			else if (hit.collider.name == "9") 
+			{
+				tile_clicked = 9;
+				transform.position = hit.point;
+				Vector3 position3d = get3dequivalentpoint (transform.position,tile_clicked);
+				Sphere3d.transform.position = position3d;
+				defaultLineWidth ();
+				GameObject.Find ("9").GetComponent<LineRenderer> ().SetWidth(0.05f,0.05f);
+			}
+			else if (hit.collider.name == "5") 
+			{
+				tile_clicked = 5;
+				transform.position = hit.point;
+				Vector3 position3d = get3dequivalentpoint (transform.position,tile_clicked);
+				Sphere3d.transform.position = position3d;
+				defaultLineWidth ();
+				GameObject.Find ("5").GetComponent<LineRenderer> ().SetWidth(0.05f,0.05f);
+			}
+			else if (hit.collider.name == "12") 
+			{
+				tile_clicked = 12;
+				transform.position = hit.point;
+				Vector3 position3d = get3dequivalentpoint (transform.position,tile_clicked);
+				Sphere3d.transform.position = position3d;
+				defaultLineWidth ();
+				GameObject.Find ("12").GetComponent<LineRenderer> ().SetWidth(0.05f,0.05f);
+			}
+			else if (hit.collider.name == "11") 
+			{
+				tile_clicked = 11;
+				transform.position = hit.point;
+				Vector3 position3d = get3dequivalentpoint (transform.position,tile_clicked);
+				Sphere3d.transform.position = position3d;
+				defaultLineWidth ();
+				GameObject.Find ("11").GetComponent<LineRenderer> ().SetWidth(0.05f,0.05f);
+			}
+			else if (hit.collider.name == "10") 
+			{
+				tile_clicked = 10;
+				transform.position = hit.point;
+				Vector3 position3d = get3dequivalentpoint (transform.position,tile_clicked);
+				Sphere3d.transform.position = position3d;
+				defaultLineWidth ();
+				GameObject.Find ("10").GetComponent<LineRenderer> ().SetWidth(0.05f,0.05f);
+			}
+		}
+	
 	}
 
+	// Converts a point in poincare model to Klein model.
 	public Vector3 ptok(Vector3 poincarepoint)
 	{
 		Vector3 kleinpoint = new Vector3 (2 * poincarepoint.x / (1 + poincarepoint.x * poincarepoint.x + poincarepoint.y * poincarepoint.y), 
@@ -105,6 +107,11 @@ public class Modellingpointmovement : MonoBehaviour {
 	}
 		
 
+	// Applies a matrix transformation to the original poincare point after 
+	// taking that point in the hyperboloid model...
+	// The transformation depends on the polygon in the hyperbolic tessellation..
+	// Then the final result is brought back to klein model..
+	// Finally the yellow sphere is place there...
 	public Vector3 TransformationPoint(Vector3 pointin2d)
 	{
 		
@@ -196,13 +203,7 @@ public class Modellingpointmovement : MonoBehaviour {
 		Vector3 intermediatepoint = ConvertmatrixtoVector3(intermediateresult);
 		
 		print ("transformed hyperboloid point " + intermediatepoint.x+ " "+intermediatepoint.y +" "+intermediatepoint.z);
-		
-		//		Vector3 intermediatepoint_1 = new Vector3();
-		//		intermediatepoint_1.x = -hyperboloidpoint.x * cosh2q - hyperboloidpoint.z * sinh2q;
-		//		intermediatepoint_1.y = -hyperboloidpoint.y;
-		//		intermediatepoint_1.z = -hyperboloidpoint.x * sinh2q - hyperboloidpoint.z * cosh2q;
-		//		print ("transformed hyperboloid point oldmethod " + intermediatepoint_1);
-		
+
 		
 		Vector3 finalkleinpoint = htok (intermediatepoint);
 		print ("final klein  " + finalkleinpoint);
@@ -212,6 +213,8 @@ public class Modellingpointmovement : MonoBehaviour {
 	}
 		
 
+
+	// Converts a point in Klein model to hyperboloid model..
 	public Vector3 ktoh(Vector3 pointinklein)
 	{
 		
@@ -222,6 +225,8 @@ public class Modellingpointmovement : MonoBehaviour {
 
 		return new Vector3 (hyperboloid_x,hyperboloid_y,hyperboloid_z);
 	}
+
+	// Converts a point in Hyperboloid model to Klein model..
 	public Vector3 htok(Vector3 hyperboloidpoint)
 	{
 		return new Vector3 (hyperboloidpoint.x/hyperboloidpoint.z,hyperboloidpoint.y/hyperboloidpoint.z,1);
@@ -229,6 +234,7 @@ public class Modellingpointmovement : MonoBehaviour {
 
 	}
 
+	// COnverts a point in hyperboloid model to Poincare model...
 	public Vector3 htop(Vector3 hyperboloidpoint)
 	{
 
@@ -244,6 +250,7 @@ public class Modellingpointmovement : MonoBehaviour {
 		return poincarepoint;
 	}
 
+	// COnverts a point in poincare model to hyperboloid model..
 	public Vector3 ptoh(Vector3 poincarepoint)
 	{
 		
@@ -258,7 +265,9 @@ public class Modellingpointmovement : MonoBehaviour {
 	}
 
 
-		
+
+	// Finds the point in the triply periodic polyhedron, where
+	// the yellow sphere has to be placed...
 	public Vector3 get3dequivalentpoint(Vector3 twodimensionalpoint,int tile_no_clicked)
 	{
 		Vector3 offset = new Vector3 (0,0,0);
@@ -307,12 +316,8 @@ public class Modellingpointmovement : MonoBehaviour {
 			finalpoint.y=-finalpoint_3.x;
 			finalpoint.z=-finalpoint_3.y;
 			finalpoint.x=0;
-			//			finalpoint=ktop (finalpoint);
-			//			finalpoint.y=finalpoint.x;
-			//			finalpoint.x=-finalpoint.y;
-			//			Vector3 finalpoint_2=TransformationPoint(finalpoint);
-
 			break;
+
 		case 12:
 			offset = new Vector3 (0f, 1.743f, 9.581f);
 			point=ktop (point);
@@ -337,6 +342,7 @@ public class Modellingpointmovement : MonoBehaviour {
 		return finalpoint+offset;
 	}
 
+	// Find the equivalent point for the fundamental polygon...
 	public Vector3 get3dequivalentpointtile0(Vector3 twodimensionalpoint)
 	{
 		Vector3 kleinpoint = ptok (twodimensionalpoint);
@@ -348,6 +354,7 @@ public class Modellingpointmovement : MonoBehaviour {
 	}
 		
 
+	// Matrix multiplication between two matrices...
 	public float[,] matrixmult(float[,] a, float[,] b)
 	{
 		int aRows = a.GetLength(0);
@@ -375,6 +382,7 @@ public class Modellingpointmovement : MonoBehaviour {
 		return C;
 	}
 
+
 	// Convert vector3 to matrix
 	public float[,] ConvertVector3tomatrix(Vector3 point)
 	{
@@ -397,6 +405,7 @@ public class Modellingpointmovement : MonoBehaviour {
 		return point;
 	}
 
+	// Sets up the default line renderer width...
 	public void defaultLineWidth()
 	{
 		GameObject.Find ("0").GetComponent<LineRenderer> ().SetWidth (0.02f, 0.02f);
@@ -406,6 +415,8 @@ public class Modellingpointmovement : MonoBehaviour {
 		GameObject.Find ("11").GetComponent<LineRenderer> ().SetWidth (0.02f, 0.02f);
 		GameObject.Find ("12").GetComponent<LineRenderer> ().SetWidth (0.02f, 0.02f);
 	}
+
+	// Converts a point in Klein to poincare model...
 	public Vector3 ktop(Vector3 b)
 	{
 		return 
@@ -415,10 +426,6 @@ public class Modellingpointmovement : MonoBehaviour {
 				0
 				
 		);
-
-			
-			
-
 	}
 	
 }
