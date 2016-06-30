@@ -55,7 +55,6 @@
      <Compile Include="Assets\ThreeDimensionalpolyhedra.cs" />
      <Compile Include="Assets\TileRelation.cs" />
      <Compile Include="Assets\Triangulator.cs" />
-     <Compile Include="Assets\TwoDimension.cs" />
      <Compile Include="Assets\demo.cs" />
      <Compile Include="Assets\generatecube.cs" />
      <Compile Include="Assets\generatedoublesidecube.cs" />
